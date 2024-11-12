@@ -9,9 +9,9 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/gymfort?serverTimezone=UTC"/>  
-                <property name="username" value="frank"/>    
-                <property name="password" value="frank5525"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/timefast?serverTimezone=UTC"/>  
+                <property name="username" value="root"/>    
+                <property name="password" value="123456"/>
                 <property name="poolMaximumActiveConnections" value="50"/>
             </dataSource>
         </environment>

@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import pojo.Colaborador;
 
 @Path("colaborador")
 public class WSColaborador {
@@ -22,7 +23,7 @@ public class WSColaborador {
     @Path("todos")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> obtenerColaboradores(){
+    public List<Colaborador> obtenerColaboradores(){
         return ImpColaboradores.obtenerColaboradores();
     }
 }
