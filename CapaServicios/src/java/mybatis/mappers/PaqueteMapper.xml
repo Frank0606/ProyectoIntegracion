@@ -5,4 +5,27 @@
         SELECT *
         FROM paquete
     </select>
+    <select id="obtenerPaqueteId" resultType="pojo.Paquete">
+        SELECT *
+        FROM paquete
+        Where idPaquete = #{idPaquete}
+    </select>
+    <insert id="agregarPaquete" pameterType="pojo.Paquete">
+        INSERT INTO paquete(descripcion, peso, profundidad, alto, ancho, idEnvio)
+        VALUES(#{descripcion}, #{peso}, #{profundidad}, #{alto}, #{ancho}, #{idEnvio})
+    </insert>
+    <update id="editarPaquete" parameterType="pojo.Paquete">
+        UPDATE paquete
+        SET descripcion = #{descripcion}
+        peso = #{peso}
+        profundidad = #{profundidad}
+        alto = #{alto}
+        ancho = #{ancho}
+        idEnvio = #{idEnvio}
+        WHERE idPaquete = #{idPaquete}
+    </update>
+    <delete id="eliminarPaquete" parameterType="pojo.Paquete">
+        DELETE paquete 
+        WHERE idPaquete = #{idPaquete}
+    </delete>
 </mapper>

@@ -8,5 +8,4 @@
         FROM colaborador c
         INNER JOIN rol rol ON rol.idRol = c.idRol;
     </select>
-    
 </mapper>
