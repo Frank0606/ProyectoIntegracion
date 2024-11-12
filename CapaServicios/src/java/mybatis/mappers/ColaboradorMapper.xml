@@ -6,5 +6,4 @@
     <select id="obtenerTodosColaborador" resultType="pojo.Colaborador">
         
     </select>
-    
 </mapper>
