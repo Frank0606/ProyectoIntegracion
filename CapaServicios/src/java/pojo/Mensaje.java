@@ -33,6 +33,4 @@ public class Mensaje {
     public String toString() {
         return "Mensaje{" + "error=" + error + ", mensaje=" + mensaje + '}';
     }
-    
-    
 }
