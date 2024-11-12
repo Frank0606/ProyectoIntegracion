@@ -20,6 +20,7 @@
     <mappers>
         <!--Operaciones a la base de datos-->
         <mapper resource="mybatis/mappers/ColaboradorMapper.xml" />
+        <mapper resource="mybatis/mappers/PaqueteMapper.xml" />
     </mappers>
 
 </configuration>
