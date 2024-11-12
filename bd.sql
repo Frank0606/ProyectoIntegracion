@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS timefast;
+
 CREATE DATABASE timefast;
 USE timefast;
 
