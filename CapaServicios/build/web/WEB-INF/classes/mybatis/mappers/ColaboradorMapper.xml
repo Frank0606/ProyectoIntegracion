@@ -4,9 +4,7 @@
 
 <mapper namespace="ColaboradorMapper">
     <select id="obtenerTodosColaborador" resultType="pojo.Colaborador">
-        SELECT c.idColaborador, c.nombreColaborador,  c.apellidoPaterno, c.apellidoMaterno, c.noPersonal, c.correoElectronico, c.curp, c.contrasenia, rol.idRol, rol.tipoRol
-        FROM colaborador c
-        INNER JOIN rol rol ON rol.idRol = c.idRol;
+        
     </select>
     
 </mapper>
