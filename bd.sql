@@ -3,7 +3,6 @@ DROP DATABASE IF EXISTS timefast;
 CREATE DATABASE timefast;
 USE timefast;
 
-
 CREATE TABLE rol (
     idRol INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
     tipoRol VARCHAR(50) NOT NULL
@@ -14,11 +13,11 @@ CREATE TABLE tipoUnidad (
     tipoUnidad VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE vehiculo (
-    idVehiculo INTEGER AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE unidad (
+    idUnidad INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
     marca VARCHAR(50) NOT NULL,
     modelo VARCHAR(50) NOT NULL,
-    año INT NOT NULL,
+    anio INT NOT NULL,
     vin VARCHAR(50) NOT NULL UNIQUE,
     noIdentificacion VARCHAR(50) NOT NULL UNIQUE
 );
@@ -34,9 +33,9 @@ CREATE TABLE colaborador (
     contrasenia VARCHAR(100) NOT NULL,
     fotografia BLOB,
     idRol INTEGER NOT NULL,
-    idVehiculo INTEGER NOT NULL,
-    FOREIGN KEY (idRol) REFERENCES Rol(idRol),
-    FOREIGN KEY (idVehiculo) REFERENCES Vehiculo(idVehiculo)
+    idUnidad INTEGER NOT NULL,
+    FOREIGN KEY (idRol) REFERENCES rol(idRol),
+    FOREIGN KEY (idUnidad) REFERENCES unidad(idUnidad)
 );
 
 CREATE TABLE cliente (
@@ -63,7 +62,7 @@ CREATE TABLE envio (
     estado VARCHAR(50) NOT NULL,
     estatus VARCHAR(50) NOT NULL,
     idCliente INTEGER NOT NULL,
-    FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente)
+    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 );
 
 CREATE TABLE paquete (
@@ -74,17 +73,16 @@ CREATE TABLE paquete (
     alto DECIMAL(10, 2) NOT NULL,
     ancho DECIMAL(10, 2) NOT NULL,
     idEnvio INT NOT NULL,
-    FOREIGN KEY (idEnvio) REFERENCES Envio(idEnvio)
+    FOREIGN KEY (idEnvio) REFERENCES envio(idEnvio)
 );
 
 CREATE TABLE asociacionConductorUnidad (
     idColaborador INTEGER NOT NULL,
     idUnidad INTEGER NOT NULL,
-    FOREIGN KEY (idColaborador) REFERENCES Colaborador(idColaborador),
-    FOREIGN KEY (idUnidad) REFERENCES TipoUnidad(idTipoUnidad),
+    FOREIGN KEY (idColaborador) REFERENCES colaborador(idColaborador),
+    FOREIGN KEY (idUnidad) REFERENCES unidad(idUnidad),
     PRIMARY KEY (idColaborador, idUnidad)
 );
-
 
 -- Insertar en la tabla rol
 INSERT INTO rol (tipoRol) VALUES 
@@ -100,8 +98,8 @@ INSERT INTO tipoUnidad (tipoUnidad) VALUES
 ('SUV'),
 ('Furgoneta');
 
--- Insertar en la tabla vehiculo
-INSERT INTO vehiculo (marca, modelo, año, vin, noIdentificacion) VALUES 
+-- Insertar en la tabla unidad
+INSERT INTO unidad (marca, modelo, anio, vin, noIdentificacion) VALUES 
 ('Toyota', 'Corolla', 2020, '1HGCM82633A123456', 'TOY-2020-001'),
 ('Ford', 'F-150', 2021, '1FTFW1EF1BKD45678', 'FORD-2021-002'),
 ('Honda', 'Civic', 2019, '19XFC2F59KE200789', 'HON-2019-003'),
@@ -109,7 +107,7 @@ INSERT INTO vehiculo (marca, modelo, año, vin, noIdentificacion) VALUES
 ('Nissan', 'Altima', 2020, '1N4AL3APXFC123456', 'NIS-2020-005');
 
 -- Insertar en la tabla colaborador
-INSERT INTO colaborador (nombreColaborador, apellidoMaterno, apellidoPaterno, curp, correoElectronico, noPersonal, contrasenia, idRol, idVehiculo) VALUES 
+INSERT INTO colaborador (nombreColaborador, apellidoMaterno, apellidoPaterno, curp, correoElectronico, noPersonal, contrasenia, idRol, idUnidad) VALUES 
 ('Juan', 'Pérez', 'López', 'JUAPPL900101HDFXXX', 'juan.perez@example.com', 'C001', 'password123', 1, 1),
 ('María', 'González', 'Hernández', 'MAGH920202MDFXXX', 'maria.gonzalez@example.com', 'C002', 'password123', 2, 2),
 ('Carlos', 'Ramírez', 'Díaz', 'CARDF930303HDFXXX', 'carlos.ramirez@example.com', 'C003', 'password123', 3, 3),
@@ -147,5 +145,6 @@ INSERT INTO asociacionConductorUnidad (idColaborador, idUnidad) VALUES
 (3, 3),
 (5, 4),
 (5, 5);
+
 
 
