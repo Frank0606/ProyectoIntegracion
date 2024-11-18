@@ -78,7 +78,7 @@ public class WSColaborador {
         }
     }
 
-    @Path("Eliminar")
+    @Path("eliminar")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje eliminarColaborador(@PathParam("noPersonal") String noPersonal) {
