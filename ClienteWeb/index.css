@@ -1,0 +1,154 @@
+/* Fuente general */
+* {
+    font-family: 'Candara', sans-serif;
+}
+
+/* Configuración del cuerpo */
+body {
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+/* Contenedor principal con animación inicial */
+#contenedorPrincipal {
+    background-image: url("fondo_paquetes.png");
+    background-size: contain;
+    background-color: rgba(255, 255, 255, 0.95);
+    background-blend-mode: overlay;
+    margin: 0 auto;
+    height: 100vh;
+    padding: 2rem;
+    justify-items: center;
+    animation: slideIn 1s ease-out;
+}
+
+/* Animación inicial */
+@keyframes slideIn {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Contenedor del título */
+#contenedorTitulo {
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Estilo del título */
+h1 {
+    font-size: 5rem;
+    display: inline;
+    color: #850303;
+    border: none;
+}
+
+/* Título gris */
+#tituloGris {
+    color: #636363;
+}
+
+/* Contenedor de búsqueda */
+#contenedorBusqueda {
+    width: 100%;
+    text-align: center;
+    margin-top: 5rem;
+    animation: fadeIn 1s ease-out 0.5s;
+}
+
+/* Etiquetas */
+label {
+    font-size: 1.2rem;
+}
+
+/* Contenedor de búsqueda 2 */
+#contenedorBusqueda2 {
+    width: 30%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo de párrafo */
+#contenedorBusqueda2 p {
+    width: 80%;
+    text-align: left !important;
+}
+
+/* Estilo del input */
+#contenedorBusqueda2 input {
+    width: 90%;
+    height: 2rem;
+    border: 0.125rem solid #850303;
+    border-radius: 3rem;
+    background-color: #E6E0E9;
+    font-weight: bold;
+    padding-left: 1rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+/* Placeholder del input */
+#contenedorBusqueda2 input::placeholder {
+    margin-left: 1rem;
+    color: #888;
+}
+
+/* Efecto del input al hacer clic */
+#contenedorBusqueda2 input:focus {
+    outline: none;
+    border-color: #ce0505;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Estilo del botón */
+#contenedorBusqueda2 button {
+    width: 20%;
+    margin-top: 1rem;
+    color: #FFFFFF;
+    background-color: #850303;
+    border: none;
+    border-radius: 3rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Efecto del botón al pasar el ratón */
+#contenedorBusqueda2 button:hover {
+    background-color: #636363;
+}
+
+/* Animación de fade-in */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Desvanecimiento de todos los elementos al hacer clic en el botón */
+#contenedorBusqueda2 button:active ~ * {
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
