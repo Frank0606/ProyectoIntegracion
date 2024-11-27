@@ -23,16 +23,19 @@ public class ImpPaquetes {
                     Paquete paquete = new Paquete();
                     paquete.setIdPaquete(-1);
                     paquete.setDescripcion("No hay paquetes.");
+                    respuesta.add(paquete);
                 }
             } catch (Exception e) {
                 Paquete paquete = new Paquete();
                 paquete.setIdPaquete(-1);
                 paquete.setDescripcion(e.getMessage());
+                respuesta.add(paquete);
             }
         } else {
             Paquete paquete = new Paquete();
             paquete.setIdPaquete(-1);
             paquete.setDescripcion("Error al conectarse a la base de datos.");
+            respuesta.add(paquete);
         }
         return respuesta;
     }
@@ -42,29 +45,30 @@ public class ImpPaquetes {
         SqlSession conexionBD = MybatisUtil.obtenerConexion();
         if (conexionBD != null) {
             try {
-                List<Paquete> listaPaquetes = conexionBD.selectOne("paquete.obtenerPaqueteId", idPaquete);
-                if (listaPaquetes != null) {
-                    for (Paquete paquete : listaPaquetes) {
-                        respuesta.add(paquete);
-                    }
+                Paquete paqueteDB = conexionBD.selectOne("paquete.obtenerPaqueteId", idPaquete);
+                if (paqueteDB != null) {
+                    respuesta.add(paqueteDB);
                 } else {
                     Paquete paquete = new Paquete();
                     paquete.setIdPaquete(-1);
                     paquete.setDescripcion("No hay paquetes.");
+                    respuesta.add(paquete);
                 }
             } catch (Exception e) {
                 Paquete paquete = new Paquete();
                 paquete.setIdPaquete(-1);
                 paquete.setDescripcion(e.getMessage());
+                respuesta.add(paquete);
             }
         } else {
             Paquete paquete = new Paquete();
             paquete.setIdPaquete(-1);
             paquete.setDescripcion("Error al conectarse a la base de datos.");
+            respuesta.add(paquete);
         }
         return respuesta;
     }
-    
+
     public static Mensaje registrarPaquete(Paquete paquete) {
         Mensaje msj = new Mensaje();
         SqlSession conexionbd = MybatisUtil.obtenerConexion();
@@ -90,7 +94,7 @@ public class ImpPaquetes {
 
         return msj;
     }
-    
+
     public static Mensaje actualizarPaquete(Paquete paquete) {
         Mensaje msj = new Mensaje();
         SqlSession conexionbd = MybatisUtil.obtenerConexion();
@@ -116,7 +120,7 @@ public class ImpPaquetes {
 
         return msj;
     }
-    
+
     public static Mensaje eliminarPaquete(Integer idPaquete) {
         Mensaje msj = new Mensaje();
         SqlSession conexionbd = MybatisUtil.obtenerConexion();

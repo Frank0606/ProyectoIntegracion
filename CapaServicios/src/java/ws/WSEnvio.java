@@ -1,7 +1,7 @@
 package ws;
 
 import com.google.gson.Gson;
-import dominio.ImpPaquetes;
+import dominio.ImpEnvios;
 import java.util.List;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
@@ -15,32 +15,32 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import pojo.Envio;
 import pojo.Mensaje;
-import pojo.Paquete;
 
-@Path("paquete")
-public class WSPaquete {
-
+@Path("envio")
+public class WSEnvio {
+    
     @Context
     private UriInfo context;
 
-    public WSPaquete() {
+    public WSEnvio() {
 
     }
 
     @Path("todos")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Paquete> obtenerPaquetes() {
-        return ImpPaquetes.obtenerPaquetes();
+    public List<Envio> obtenerEnvios() {
+        return ImpEnvios.obtenerEnvios();
     }
     
-    @Path("id-paquete/{idPaquete}")
+    @Path("numero-guia/{numeroGuia}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Paquete> obtenerPaqueteId(@PathParam("idPaquete") Integer idPaquete) {
-        if (idPaquete != null && idPaquete > 0) {
-            return ImpPaquetes.obtenerPaqueteId(idPaquete);
+    public List<Envio> obtenerEnvioNoGuia(@PathParam("numeroGuia") String numeroGuia) {
+        if (numeroGuia != null && !numeroGuia.isEmpty()) {
+            return ImpEnvios.obtenerEnvioNoGuia(numeroGuia);
         }
 
         throw new BadRequestException();
@@ -50,11 +50,11 @@ public class WSPaquete {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje agregarPaquete(String jsonPaquete) {
+    public Mensaje agregarEnvio(String jsonEnvio) {
         try {
             Gson gson = new Gson();
-            Paquete paquete = gson.fromJson(jsonPaquete, Paquete.class);
-            return ImpPaquetes.registrarPaquete(paquete);
+            Envio envio = gson.fromJson(jsonEnvio, Envio.class);
+            return ImpEnvios.registrarEnvio(envio);
         } catch (Exception e) {
             throw new BadRequestException();
         }
@@ -64,11 +64,11 @@ public class WSPaquete {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje editarPaquete(String jsonPaquete) {
+    public Mensaje editarEnvio(String jsonEnvio) {
         try {
             Gson gson = new Gson();
-            Paquete paquete = gson.fromJson(jsonPaquete, Paquete.class);
-            return ImpPaquetes.actualizarPaquete(paquete);
+            Envio envio = gson.fromJson(jsonEnvio, Envio.class);
+            return ImpEnvios.actualizarEnvio(envio);
         } catch (Exception e) {
             throw new BadRequestException();
         }
@@ -78,11 +78,11 @@ public class WSPaquete {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarPaquete(String jsonIdPaquete) {
+    public Mensaje eliminarEnvio(String jsonNumeroGuiaEnvio) {
         try {
             Gson gson = new Gson();
-            Paquete paquete = gson.fromJson(jsonIdPaquete, Paquete.class);
-            return ImpPaquetes.eliminarPaquete(paquete.getIdPaquete());
+            Envio envio = gson.fromJson(jsonNumeroGuiaEnvio, Envio.class);
+            return ImpEnvios.eliminarEnvio(envio.getNumeroGuia());
         } catch (Exception e) {
             throw new BadRequestException();
         }

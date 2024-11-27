@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="envio">
+    <select id="obtenerEnvios" resultType="pojo.Envio">
+        SELECT *
+        FROM envio
+    </select>
+    <select id="obtenerEnvioNoGuia" resultType="pojo.Envio">
+        SELECT *
+        FROM envio
+        WHERE numeroGuia = #{numeroGuia}
+    </select>
+    <insert id="agregarEnvio" parameterType="pojo.Envio">
+        INSERT INTO envio(origen, calle, numeroGuia, costoEnvio, numeroCasa, colonia, cp, ciudad, estado, estatus, idCliente)
+        VALUES(#{origen}, #{calle}, #{numeroGuia}, #{costoEnvio}, #{numeroCasa}, #{colonia}, #{cp}, #{ciudad}, #{estado}, #{estatus}, #{idCliente})
+    </insert>
+    <update id="actualizarEnvio" parameterType="pojo.Envio">
+        UPDATE envio
+        SET origen = #{origen},
+        calle = #{calle},
+        costoEnvio = #{costoEnvio},
+        numeroCasa = #{numeroCasa},
+        colonia = #{colonia},
+        cp = #{cp},
+        ciudad = #{ciudad},
+        estado = #{estado},
+        estatus = #{estatus},
+        idCliente = #{idCliente}
+        WHERE numeroGuia = #{numeroGuia}
+    </update>
+    <delete id="eliminarEnvio" parameterType="pojo.Envio">
+        DELETE FROM envio 
+        WHERE numeroGuia = #{numeroGuia}
+    </delete>
+</mapper>
