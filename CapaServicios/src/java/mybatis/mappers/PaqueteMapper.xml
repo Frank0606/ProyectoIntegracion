@@ -10,17 +10,17 @@
         FROM paquete
         Where idPaquete = #{idPaquete}
     </select>
-    <insert id="agregarPaquete" pameterType="pojo.Paquete">
+    <insert id="agregarPaquete" parameterType="pojo.Paquete">
         INSERT INTO paquete(descripcion, peso, profundidad, alto, ancho, idEnvio)
         VALUES(#{descripcion}, #{peso}, #{profundidad}, #{alto}, #{ancho}, #{idEnvio})
     </insert>
-    <update id="editarPaquete" parameterType="pojo.Paquete">
+    <update id="actualizarPaquete" parameterType="pojo.Paquete">
         UPDATE paquete
-        SET descripcion = #{descripcion}
-        peso = #{peso}
-        profundidad = #{profundidad}
-        alto = #{alto}
-        ancho = #{ancho}
+        SET descripcion = #{descripcion},
+        peso = #{peso},
+        profundidad = #{profundidad},
+        alto = #{alto},
+        ancho = #{ancho},
         idEnvio = #{idEnvio}
         WHERE idPaquete = #{idPaquete}
     </update>
