@@ -1,15 +1,14 @@
-/* Fuente general */
 * {
     font-family: 'Candara', sans-serif;
 }
 
-/* Configuración del cuerpo */
 body {
     margin: 0 auto;
     padding: 0 auto;
+    height: 100%;
+    width: 100%;
 }
 
-/* Contenedor principal con animación inicial */
 #contenedorPrincipal {
     background-image: url("fondo_paquetes.png");
     background-size: contain;
@@ -28,20 +27,19 @@ body {
         transform: translateY(-100%);
         opacity: 0;
     }
+
     100% {
         transform: translateY(0);
         opacity: 1;
     }
 }
 
-/* Contenedor del título */
 #contenedorTitulo {
     width: 100%;
     text-align: center;
     animation: fadeIn 1s ease-out;
 }
 
-/* Estilo del título */
 h1 {
     font-size: 5rem;
     display: inline;
@@ -49,12 +47,10 @@ h1 {
     border: none;
 }
 
-/* Título gris */
 #tituloGris {
     color: #636363;
 }
 
-/* Contenedor de búsqueda */
 #contenedorBusqueda {
     width: 100%;
     text-align: center;
@@ -62,12 +58,10 @@ h1 {
     animation: fadeIn 1s ease-out 0.5s;
 }
 
-/* Etiquetas */
 label {
     font-size: 1.2rem;
 }
 
-/* Contenedor de búsqueda 2 */
 #contenedorBusqueda2 {
     width: 30%;
     margin: 0 auto;
@@ -76,13 +70,11 @@ label {
     align-items: center;
 }
 
-/* Estilo de párrafo */
 #contenedorBusqueda2 p {
     width: 80%;
     text-align: left !important;
 }
 
-/* Estilo del input */
 #contenedorBusqueda2 input {
     width: 90%;
     height: 2rem;
@@ -97,7 +89,6 @@ label {
     transition: transform 0.2s;
 }
 
-/* Placeholder del input */
 #contenedorBusqueda2 input::placeholder {
     margin-left: 1rem;
     color: #888;
@@ -107,11 +98,10 @@ label {
 #contenedorBusqueda2 input:focus {
     outline: none;
     border-color: #ce0505;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
+    box-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+    transform: translateY(-0.3rem);
 }
 
-/* Estilo del botón */
 #contenedorBusqueda2 button {
     width: 20%;
     margin-top: 1rem;
@@ -136,13 +126,14 @@ label {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
 }
 
 /* Desvanecimiento de todos los elementos al hacer clic en el botón */
-#contenedorBusqueda2 button:active ~ * {
+#contenedorBusqueda2 button:active~* {
     animation: fadeOut 1s forwards;
 }
 
@@ -151,4 +142,44 @@ label {
         opacity: 0;
         visibility: hidden;
     }
+}
+
+.ruedaCargando {
+    border: 1rem solid #a3a3a3;
+    border-top: 1rem solid #850303;
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.contenedorCargando {
+    display: none;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+}
+
+#pError {
+    display: none;
+    font-size: 1.1rem;
+    color: #850303;
+    text-align: left;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
 }
