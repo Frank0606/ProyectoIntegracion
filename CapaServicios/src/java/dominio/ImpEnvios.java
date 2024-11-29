@@ -21,19 +21,19 @@ public class ImpEnvios {
                     }
                 } else {
                     Envio envio = new Envio();
-                    envio.setIdEnvio(-1);
+                    envio.setIdEnvio("-1");
                     envio.setNumeroGuia("No hay envios.");
                     respuesta.add(envio);
                 }
             } catch (Exception e) {
                 Envio envio = new Envio();
-                envio.setIdEnvio(-1);
+                envio.setIdEnvio("-1");
                 envio.setNumeroGuia(e.getMessage());
                 respuesta.add(envio);
             }
         } else {
             Envio envio = new Envio();
-            envio.setIdEnvio(-1);
+            envio.setIdEnvio("-1");
             envio.setNumeroGuia("Error al conectarse a la base de datos.");
             respuesta.add(envio);
         }
@@ -50,19 +50,19 @@ public class ImpEnvios {
                     respuesta.add(envioDB);
                 } else {
                     Envio envio = new Envio();
-                    envio.setIdEnvio(-1);
+                    envio.setIdEnvio("-1");
                     envio.setNumeroGuia("No hay envios.");
                     respuesta.add(envio);
                 }
             } catch (Exception e) {
                 Envio envio = new Envio();
-                envio.setIdEnvio(-1);
+                envio.setIdEnvio("-1");
                 envio.setNumeroGuia(e.getMessage());
                 respuesta.add(envio);
             }
         } else {
             Envio envio = new Envio();
-            envio.setIdEnvio(-1);
+            envio.setIdEnvio("-1");
             envio.setNumeroGuia("Error al conectarse a la base de datos.");
             respuesta.add(envio);
         }

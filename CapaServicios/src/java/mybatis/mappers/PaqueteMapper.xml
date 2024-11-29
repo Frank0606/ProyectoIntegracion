@@ -5,10 +5,10 @@
         SELECT *
         FROM paquete
     </select>
-    <select id="obtenerPaqueteId" resultType="pojo.Paquete">
+    <select id="obtenerPaqueteIdEnvio" resultType="pojo.Paquete">
         SELECT *
         FROM paquete
-        Where idPaquete = #{idPaquete}
+        Where idEnvio = #{idEnvio}
     </select>
     <insert id="agregarPaquete" parameterType="pojo.Paquete">
         INSERT INTO paquete(descripcion, peso, profundidad, alto, ancho, idEnvio)

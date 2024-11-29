@@ -2,7 +2,7 @@ package pojo;
 
 public class Envio {
 
-    private Integer idEnvio;
+    private String idEnvio;
     private String origen;
     private String calle;
     private String numeroGuia;
@@ -13,12 +13,15 @@ public class Envio {
     private String ciudad;
     private String estado;
     private String estatus;
-    private Integer idCliente;
+    private String historialEstados;
+    private String idCliente;
 
     public Envio() {
     }
 
-    public Envio(Integer idEnvio, String origen, String calle, String numeroGuia, Double costoEnvio, String numeroCasa, String colonia, String cp, String ciudad, String estado, String estatus, Integer idCliente) {
+    public Envio(String idEnvio, String origen, String calle, String numeroGuia, 
+            Double costoEnvio, String numeroCasa, String colonia, String cp, 
+            String ciudad, String estado, String estatus, String historialEstados, String idCliente) {
         this.idEnvio = idEnvio;
         this.origen = origen;
         this.calle = calle;
@@ -30,14 +33,15 @@ public class Envio {
         this.ciudad = ciudad;
         this.estado = estado;
         this.estatus = estatus;
+        this.historialEstados = historialEstados;
         this.idCliente = idCliente;
     }
 
-    public Integer getIdEnvio() {
+    public String getIdEnvio() {
         return idEnvio;
     }
 
-    public void setIdEnvio(Integer idEnvio) {
+    public void setIdEnvio(String idEnvio) {
         this.idEnvio = idEnvio;
     }
 
@@ -121,11 +125,19 @@ public class Envio {
         this.estatus = estatus;
     }
 
-    public Integer getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
+    public String getHistorialEstados() {
+        return historialEstados;
+    }
+
+    public void setHistorialEstados(String historialEstados) {
+        this.historialEstados = historialEstados;
+    }
+
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 

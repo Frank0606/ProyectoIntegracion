@@ -35,12 +35,12 @@ public class WSPaquete {
         return ImpPaquetes.obtenerPaquetes();
     }
     
-    @Path("id-paquete/{idPaquete}")
+    @Path("id-envio/{idEnvio}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Paquete> obtenerPaqueteId(@PathParam("idPaquete") Integer idPaquete) {
-        if (idPaquete != null && idPaquete > 0) {
-            return ImpPaquetes.obtenerPaqueteId(idPaquete);
+    public List<Paquete> obtenerPaqueteIdEnvio(@PathParam("idEnvio") String idEnvio) {
+        if (idEnvio != null && !"".equals(idEnvio)) {
+            return ImpPaquetes.obtenerPaqueteIdEnvio(idEnvio);
         }
 
         throw new BadRequestException();
