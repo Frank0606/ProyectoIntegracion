@@ -16,6 +16,5 @@ public class WSTipoUnidad {
     @Produces(MediaType.APPLICATION_JSON)
     public List<TipoUnidad> obtencionRol() {
         return ImpTipoUnidad.obtnerUnidad();
-
     }
 }

@@ -6,7 +6,6 @@ public class TipoUnidad {
     private String tipoUnidad;
 
     TipoUnidad() {
-
     }
 
     public TipoUnidad(Integer idTipoUnidad, String tipoUnidad) {
@@ -34,5 +33,4 @@ public class TipoUnidad {
     public String toString() {
         return "TipoUnidad{" + "idTipoUnidad=" + idTipoUnidad + ", tipoUnidad=" + tipoUnidad + '}';
     }
-
 }

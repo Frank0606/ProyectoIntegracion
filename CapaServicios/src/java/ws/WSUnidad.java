@@ -22,22 +22,16 @@ public class WSUnidad {
     @Path("obtenerTodasUnidades")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-
-    public List<Unidad> obtencionUnidades() {
-
-        return ImpUnidad.obtencionUnidades();
-
+    public List<Unidad> obtenerUnidades() {
+        return ImpUnidad.obtenerUnidades();
     }
 
     @Path("obtenerUnidadVin/{vin}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-
-    public Unidad obtenerNO(@PathParam("vin") String vin) {
-
+    public Unidad obtenerUnidadVin(@PathParam("vin") String vin) {
         if (vin != null && !vin.isEmpty()) {
             Unidad unidades = ImpUnidad.obtenerUnidadVin(vin);
-
             if (unidades != null) {
                 return unidades;
             }
@@ -50,13 +44,12 @@ public class WSUnidad {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje registrarColaborador(String jsonColaborador) {
-
+    public Mensaje agregarUnidad(String jsonColaborador) {
         try {
             Gson gson = new Gson();
             Unidad unidades = gson.fromJson(jsonColaborador, Unidad.class);
 
-            return ImpUnidad.registrarUnidad(unidades);
+            return ImpUnidad.agregarUnidad(unidades);
         } catch (Exception e) {
             throw new BadRequestException();
         }

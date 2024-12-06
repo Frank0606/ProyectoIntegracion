@@ -7,10 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import pojo.Cliente;
 import pojo.Mensaje;
 
-/**
- *
- * @author Manzano
- */
 public class ImpClientes {
 
     public static List<Cliente> obtenerClientes() {

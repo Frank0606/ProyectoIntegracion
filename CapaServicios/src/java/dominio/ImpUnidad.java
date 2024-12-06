@@ -7,36 +7,29 @@ import pojo.Mensaje;
 import pojo.Unidad;
 
 public class ImpUnidad {
-    public static List<Unidad> obtencionUnidades() {
-        SqlSession conexionBD = MybatisUtil.obtenerConexion();
 
+    public static List<Unidad> obtenerUnidades() {
+        SqlSession conexionBD = MybatisUtil.obtenerConexion();
         if (conexionBD != null) {
             try {
                 List<Unidad> unidades = conexionBD.selectList("unidad.unidades");
-
                 conexionBD.commit();
                 return unidades;
             } catch (Exception e) {
                 e.printStackTrace();
                 conexionBD.rollback();
-
             } finally {
                 conexionBD.close();
             }
-
         }
-
         return null;
-
     }
 
     public static Unidad obtenerUnidadVin(String vin) {
         SqlSession conexionBD = MybatisUtil.obtenerConexion();
-
         if (conexionBD != null) {
             try {
                 Unidad unidades = conexionBD.selectOne("unidad.unidadVin", vin);
-
                 conexionBD.commit();
                 return unidades;
             } catch (Exception e) {
@@ -46,18 +39,14 @@ public class ImpUnidad {
             } finally {
                 conexionBD.close();
             }
-
         }
-
         return null;
     }
 
-    public static Mensaje registrarUnidad(Unidad unidad) {
+    public static Mensaje agregarUnidad(Unidad unidad) {
         Mensaje msj = new Mensaje();
         SqlSession conexionBD = MybatisUtil.obtenerConexion();
-
         if (conexionBD != null) {
-
             try {
                 int resultado = conexionBD.insert("unidad.registrarUnidad", unidad);
                 conexionBD.commit();
@@ -73,7 +62,6 @@ public class ImpUnidad {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
             }
-
         } else {
             msj.setError(true);
             msj.setMensaje("\"Por el momento el servicio no esta disponible.\"");

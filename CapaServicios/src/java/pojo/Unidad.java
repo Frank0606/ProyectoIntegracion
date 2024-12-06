@@ -14,7 +14,6 @@ public class Unidad {
     private String tipoUnidad;
 
     public Unidad() {
-
     }
 
     public Unidad(Integer idUnidad, String marca, String modelo, int anio, String vin, String noIdentificacion, Integer idTipoUnidad, Integer idRol, String rol, String tipoUnidad) {
@@ -114,5 +113,4 @@ public class Unidad {
     public String toString() {
         return "Unidad{" + "idUnidad=" + idUnidad + ", marca=" + marca + ", modelo=" + modelo + ", anio=" + anio + ", vin=" + vin + ", noIdentificacion=" + noIdentificacion + ", idTipoUnidad=" + idTipoUnidad + ", idRol=" + idRol + ", rol=" + rol + ", tipoUnidad=" + tipoUnidad + '}';
     }
-
 }

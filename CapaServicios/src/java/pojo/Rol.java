@@ -6,7 +6,6 @@ public class Rol {
     private String tipoRol;
 
     public Rol() {
-
     }
 
     public Rol(Integer idRole, String tipoRol) {
@@ -34,5 +33,4 @@ public class Rol {
     public String toString() {
         return "Rol{" + "idRole=" + idRole + ", tipoRol=" + tipoRol + '}';
     }
-
 }
