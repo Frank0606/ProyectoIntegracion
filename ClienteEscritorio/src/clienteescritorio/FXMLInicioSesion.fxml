@@ -52,11 +52,21 @@
                   <Font name="Candara" size="18.0" />
                </font>
             </PasswordField>
-            <Button fx:id="btnIngresar" layoutX="258.0" layoutY="500.0" mnemonicParsing="false" style="-fx-background-color: #850303; -fx-border-radius: 60px; -fx-background-radius: 60px; -fx-padding: 10px;" text="Ingresar" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="btnIngresar" layoutX="258.0" layoutY="500.0" mnemonicParsing="false" onAction="#clickIniciarSesion" style="-fx-background-color: #850303; -fx-border-radius: 60px; -fx-background-radius: 60px; -fx-padding: 10px;" text="Ingresar" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
             </Button>
+            <Label fx:id="labelErrorNoPersonal" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="188.0" layoutY="364.0" prefHeight="21.0" prefWidth="214.0" textAlignment="RIGHT" textFill="#850303" underline="true">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelErrorContrasena" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="188.0" layoutY="464.0" prefHeight="21.0" prefWidth="214.0" textAlignment="RIGHT" textFill="#850303" underline="true">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <ImageView fitHeight="800.0" fitWidth="600.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">

@@ -18,11 +18,6 @@ import javax.ws.rs.core.UriInfo;
 import pojo.Cliente;
 import pojo.Mensaje;
 
-/**
- *
- * @author Manzano
- */
-
 @Path("cliente")
 public class WSCliente {
 

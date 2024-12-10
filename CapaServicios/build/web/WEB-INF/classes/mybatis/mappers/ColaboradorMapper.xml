@@ -4,26 +4,42 @@
 
 <mapper namespace="ColaboradorMapper">
     <select id="obtenerTodosColaborador" resultType="pojo.Colaborador">
-        SELECT c.idColaborador, c.nombreColaborador,  c.apellidoPaterno, c.apellidoMaterno, c.noPersonal, c.correoElectronico, c.curp, c.contrasenia, rol.idRol, rol.tipoRol
+        SELECT c.idColaborador, c.nombreColaborador,  c.apellidoPaterno, 
+        c.apellidoMaterno, c.noPersonal, c.correoElectronico, c.curp, 
+        c.contrasenia, r.idRol, r.tipoRol, u.idUnidad, u.vin
         FROM colaborador c
-        INNER JOIN rol rol ON rol.idRol = c.idRol;
+        INNER JOIN rol r ON r.idRol = c.idRol
+        INNER JOIN unidad u ON u.idUnidad = c.idUnidad
     </select>
     
     <select id="obtenerNoPersonal" resultType="pojo.Colaborador">
-        SELECT c.idColaborador, c.nombreColaborador,  c.apellidoPaterno, c.apellidoMaterno, c.noPersonal, c.correoElectronico, c.curp, c.contrasenia, rol.idRol, rol.tipoRol
+        SELECT c.idColaborador, c.nombreColaborador,  c.apellidoPaterno, 
+        c.apellidoMaterno, c.noPersonal, c.correoElectronico, c.curp, 
+        c.contrasenia, r.idRol, r.tipoRol, u.idUnidad, u.vin
         FROM colaborador c
-        INNER JOIN rol rol ON rol.idRol = c.idRol;
-        WHERE c.noPersonal = #{noPersonal};
+        INNER JOIN rol r ON r.idRol = c.idRol
+        INNER JOIN unidad u ON u.idUnidad = c.idUnidad
+        WHERE c.noPersonal = #{noPersonal}
     </select>
     
     <insert id="agregar" parameterType="pojo.Colaborador">
-        INSERT INTO colaborador (nombreColaborador, apellidoPaterno, apellidoMaterno, curp, correoElectronico, noPersonal, contrasenia, fotografia, idRol, idUnidad) 
-        VALUES (#{nombreColaborador}, #{apellidoPaterno}, #{apellidoMaterno}, #{curp}, #{correoElectronico}, #{noPersonal}, #{contrasenia}, #{fotografia}, #{idRol}, #{idUnidad});
+        INSERT INTO colaborador (nombreColaborador, apellidoPaterno, apellidoMaterno, 
+        curp, correoElectronico, noPersonal, contrasenia, fotografia, idRol, idUnidad) 
+        VALUES (#{nombreColaborador}, #{apellidoPaterno}, #{apellidoMaterno}, #{curp}, 
+        #{correoElectronico}, #{noPersonal}, #{contrasenia}, #{fotografia}, #{idRol}, #{idUnidad});
     </insert>
     
     <update id="actualizar" parameterType="pojo.Colaborador">
         UPDATE colaborador
-        SET nombreColaborador = #{nombreColaborador}, apellidoPaterno = #{apellidoPaterno}, apellidoMaterno = #{apellidoMaterno}, curp = #{curp}, correoElectronico = #{correoElectronico}, contrasenia = #{contrasenia}, fotografia = #{fotografia}, idRol = #{idRol}, idUnidad = #{idUnidad}
+        SET nombreColaborador = #{nombreColaborador}, 
+        apellidoPaterno = #{apellidoPaterno}, 
+        apellidoMaterno = #{apellidoMaterno}, 
+        curp = #{curp}, 
+        correoElectronico = #{correoElectronico}, 
+        contrasenia = #{contrasenia}, 
+        fotografia = #{fotografia}, 
+        idRol = #{idRol}, 
+        idUnidad = #{idUnidad}
         WHERE noPersonal = #{noPersonal};
     </update>
 

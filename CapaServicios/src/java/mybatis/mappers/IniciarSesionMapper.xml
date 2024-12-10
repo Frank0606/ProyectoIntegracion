@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--El namespace es su identificador del mapper, se usa para ser llamado-->
+<mapper namespace="sesion">
+    <select id="iniciarSesionColaborador" resultType="pojo.Colaborador">
+        SELECT 
+        c.idColaborador, 
+        c.nombreColaborador, 
+        c.apellidoPaterno, 
+        c.apellidoMaterno, 
+        c.nopersonal, 
+        c.correoElectronico, 
+        c.curp, 
+        c.contrasenia, 
+        c.fotografia, 
+        r.idRol,
+        r.tipoRol,
+        u.idUnidad,
+        u.vin
+        FROM colaborador c 
+        INNER JOIN rol r ON r.idRol = c.idRol 
+        INNER JOIN unidad u ON u.idUnidad = c.idUnidad 
+        WHERE noPersonal = #{noPersonal} AND contrasenia = #{contrasenia}
+    </select>
+    <select id="iniciarSesionCliente" resultType="pojo.Cliente">
+        SELECT 
+        cl.idCliente, 
+        cl.nombreCliente, 
+        cl.apellidoPaterno, 
+        cl.apellidoMaterno, 
+        cl.telefono, 
+        cl.correoElectronico, 
+        cl.contrasenia, 
+        cl.fotografia 
+        FROM cliente cl 
+        WHERE cl.correoElectronico = #{correo} AND cl.contrasenia = #{contrasenia}
+    </select>
+</mapper>

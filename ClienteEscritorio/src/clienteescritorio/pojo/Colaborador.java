@@ -1,4 +1,4 @@
-package pojo;
+package clienteescritorio.pojo;
 
 public class Colaborador {
     
@@ -19,7 +19,10 @@ public class Colaborador {
     public Colaborador() {
     }
 
-    public Colaborador(Integer idColaborador, String nombreColaborador, String apellidoMaterno, String apellidoPaterno, String curp, String correoElectronico, String noPersonal, String contrasenia, byte[] fotografia, Integer idRol, String tipoRol, Integer idUnidad, String vin) {
+    public Colaborador(Integer idColaborador, String nombreColaborador, 
+            String apellidoMaterno, String apellidoPaterno, String curp, 
+            String correoElectronico, String noPersonal, String contrasenia, 
+            byte[] fotografia, Integer idRol, String tipoRol, Integer idUnidad, String vin) {
         this.idColaborador = idColaborador;
         this.nombreColaborador = nombreColaborador;
         this.apellidoMaterno = apellidoMaterno;
@@ -143,4 +146,6 @@ public class Colaborador {
     public String toString() {
         return "Colaborador{" + "idColaborador=" + idColaborador + ", nombreColaborador=" + nombreColaborador + ", apellidoMaterno=" + apellidoMaterno + ", apellidoPaterno=" + apellidoPaterno + ", curp=" + curp + ", correoElectronico=" + correoElectronico + ", noPersonal=" + noPersonal + ", contrasenia=" + contrasenia + ", fotografia=" + fotografia + ", idRol=" + idRol + ", tipoRol=" + tipoRol + ", idUnidad=" + idUnidad + ", vin=" + vin + '}';
     }
+
+    
 }
