@@ -36,4 +36,25 @@
         FROM cliente cl 
         WHERE cl.correoElectronico = #{correo} AND cl.contrasenia = #{contrasenia}
     </select>
+    
+    <select id="iniciarSesionConductor" resultType="pojo.Colaborador">
+        SELECT 
+        c.idColaborador, 
+        c.nombreColaborador, 
+        c.apellidoPaterno, 
+        c.apellidoMaterno, 
+        c.nopersonal, 
+        c.correoElectronico, 
+        c.curp, 
+        c.contrasenia, 
+        c.fotografia, 
+        r.idRol,
+        r.tipoRol,
+        u.idUnidad,
+        u.vin
+        FROM colaborador c 
+        INNER JOIN rol r ON r.idRol = c.idRol 
+        INNER JOIN unidad u ON u.idUnidad = c.idUnidad 
+        WHERE noPersonal = #{noPersonal} AND contrasenia = #{contrasenia} AND c.idRol = 3
+    </select>
 </mapper>

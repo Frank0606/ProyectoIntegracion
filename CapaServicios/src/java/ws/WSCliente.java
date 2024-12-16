@@ -77,14 +77,15 @@ public class WSCliente {
         }
     }
 
-    @Path("eliminar/{idCliente}")
+    @Path("eliminar/{correoElectronico}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarCliente(@PathParam("idCliente") int idCliente) {
-        if (idCliente > 0) {
-            return ImpClientes.eliminarCliente(idCliente);
+    public Mensaje eliminarCliente(@PathParam("correoElectronico") String correoElectronico) {
+        if (correoElectronico != null && !correoElectronico.isEmpty()) {
+            return ImpClientes.eliminarCliente(correoElectronico);
         } else {
-            throw new BadRequestException("ID de cliente inválido.");
+            throw new BadRequestException("Correo electrónico inválido.");
         }
     }
+
 }

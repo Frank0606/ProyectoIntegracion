@@ -5,30 +5,66 @@
 <mapper namespace="ClienteMapper">
 
     <select id="obtenerTodosClientes" resultType="pojo.Cliente">
-        SELECT idCliente, nombreCliente, apellidoPaterno, apellidoMaterno, telefono, correoElectronico
+        SELECT 
+        idCliente, 
+        telefono, 
+        apellidoMaterno, 
+        apellidoPaterno, 
+        calle, 
+        colonia, 
+        cp, 
+        correoElectronico, 
+        contrasenia, 
+        fotografia, 
+        nombreCliente
         FROM cliente;
     </select>
-    
-    <select id="obtenerCorreo" parameterType="string" resultType="pojo.Cliente">
-        SELECT idCliente, nombreCliente, apellidoPaterno, apellidoMaterno, telefono, correoElectronico
-        FROM cliente
-        WHERE correoElectronico = #{correoElectronico};
-    </select>
-    
+
     <insert id="agregar" parameterType="pojo.Cliente">
-        INSERT INTO cliente (telefono, apellidoMaterno, apellidoPaterno, correoElectronico, contrasenia, fotografia, nombreCliente) 
-        VALUES (#{telefono}, #{apellidoMaterno}, #{apellidoPaterno}, #{correoElectronico}, #{contrasenia}, #{fotografia}, #{nombreCliente});
+        INSERT INTO cliente (
+        telefono, 
+        apellidoMaterno, 
+        apellidoPaterno, 
+        calle, 
+        colonia, 
+        cp, 
+        correoElectronico, 
+        contrasenia, 
+        fotografia, 
+        nombreCliente
+        ) 
+        VALUES (
+        #{telefono}, 
+        #{apellidoMaterno}, 
+        #{apellidoPaterno}, 
+        #{calle}, 
+        #{colonia}, 
+        #{cp}, 
+        #{correoElectronico}, 
+        #{contrasenia}, 
+        #{fotografia}, 
+        #{nombreCliente}
+        );
     </insert>
     
     <update id="actualizar" parameterType="pojo.Cliente">
         UPDATE cliente
-        SET telefono = #{telefono}, apellidoMaterno = #{apellidoMaterno}, apellidoPaterno = #{apellidoPaterno}, correoElectronico = #{correoElectronico}, contrasenia = #{contrasenia}, fotografia = #{fotografia}, nombreCliente = #{nombreCliente}
+        SET 
+        telefono = #{telefono}, 
+        apellidoMaterno = #{apellidoMaterno}, 
+        apellidoPaterno = #{apellidoPaterno}, 
+        calle = #{calle}, 
+        colonia = #{colonia}, 
+        cp = #{cp}, 
+        contrasenia = #{contrasenia}, 
+        fotografia = #{fotografia}, 
+        nombreCliente = #{nombreCliente}
         WHERE idCliente = #{idCliente};
     </update>
-    
-    <delete id="eliminar" parameterType="int">
+
+    <delete id="eliminar">
         DELETE FROM cliente
-        WHERE idCliente = #{idCliente};
+        WHERE correoElectronico = #{correoElectronico};
     </delete>
     
 </mapper>
