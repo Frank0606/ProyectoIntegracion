@@ -18,11 +18,12 @@ public class Cliente {
     private String contrasenia;
     private String fotografia;
     private String nombreCliente;
+    private String numeroCasa;
 
     public Cliente() {
     }
 
-    public Cliente(Integer idCliente, String telefono, String apellidoMaterno, String apellidoPaterno, String calle, String colonia, String cp, String correoElectronico, String contrasenia, String fotografia, String nombreCliente) {
+    public Cliente(Integer idCliente, String telefono, String apellidoMaterno, String apellidoPaterno, String calle, String colonia, String cp, String correoElectronico, String contrasenia, String fotografia, String nombreCliente, String numeroCasa) {
         this.idCliente = idCliente;
         this.telefono = telefono;
         this.apellidoMaterno = apellidoMaterno;
@@ -34,6 +35,15 @@ public class Cliente {
         this.contrasenia = contrasenia;
         this.fotografia = fotografia;
         this.nombreCliente = nombreCliente;
+        this.numeroCasa = numeroCasa;
+    }
+
+    public String getNumeroCasa() {
+        return numeroCasa;
+    }
+
+    public void setNumeroCasa(String numeroCasa) {
+        this.numeroCasa = numeroCasa;
     }
 
     public Integer getIdCliente() {
