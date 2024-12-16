@@ -11,22 +11,28 @@ public class Cliente {
     private String telefono;
     private String apellidoMaterno;
     private String apellidoPaterno;
+    private String calle;
+    private String colonia;
+    private String cp;
     private String correoElectronico;
     private String contrasenia;
-    private String fotografía;
+    private String fotografia;
     private String nombreCliente;
 
     public Cliente() {
     }
 
-    public Cliente(Integer idCliente, String telefono, String apellidoMaterno, String apellidoPaterno, String correoElectronico, String contrasenia, String fotografía, String nombreCliente) {
+    public Cliente(Integer idCliente, String telefono, String apellidoMaterno, String apellidoPaterno, String calle, String colonia, String cp, String correoElectronico, String contrasenia, String fotografia, String nombreCliente) {
         this.idCliente = idCliente;
         this.telefono = telefono;
         this.apellidoMaterno = apellidoMaterno;
         this.apellidoPaterno = apellidoPaterno;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.cp = cp;
         this.correoElectronico = correoElectronico;
         this.contrasenia = contrasenia;
-        this.fotografía = fotografía;
+        this.fotografia = fotografia;
         this.nombreCliente = nombreCliente;
     }
 
@@ -62,6 +68,30 @@ public class Cliente {
         this.apellidoPaterno = apellidoPaterno;
     }
 
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }
+
+    public String getCp() {
+        return cp;
+    }
+
+    public void setCp(String cp) {
+        this.cp = cp;
+    }
+
     public String getCorreoElectronico() {
         return correoElectronico;
     }
@@ -78,12 +108,12 @@ public class Cliente {
         this.contrasenia = contrasenia;
     }
 
-    public String getFotografía() {
-        return fotografía;
+    public String getFotografia() {
+        return fotografia;
     }
 
-    public void setFotografía(String fotografía) {
-        this.fotografía = fotografía;
+    public void setFotografia(String fotografia) {
+        this.fotografia = fotografia;
     }
 
     public String getNombreCliente() {
@@ -93,5 +123,4 @@ public class Cliente {
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
-    
 }

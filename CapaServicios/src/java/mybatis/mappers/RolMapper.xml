@@ -5,6 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="obtenerRol">
     <select id = "roles" resultType="pojo.Rol">
-        Select idRole, tipoRol from Rol;
+        SELECT idRol, tipoRol FROM Rol;
     </select>
 </mapper>

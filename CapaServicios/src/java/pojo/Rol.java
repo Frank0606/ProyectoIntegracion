@@ -2,23 +2,23 @@ package pojo;
 
 public class Rol {
 
-    private Integer idRole;
+    private Integer idRol;
     private String tipoRol;
 
     public Rol() {
     }
 
-    public Rol(Integer idRole, String tipoRol) {
-        this.idRole = idRole;
+    public Rol(Integer idRol, String tipoRol) {
+        this.idRol = idRol;
         this.tipoRol = tipoRol;
     }
 
-    public Integer getIdRole() {
-        return idRole;
+    public Integer getIdRol() {
+        return idRol;
     }
 
-    public void setIdRole(Integer idRole) {
-        this.idRole = idRole;
+    public void setIdRol(Integer idRol) {
+        this.idRol = idRol;
     }
 
     public String getTipoRol() {
@@ -31,6 +31,6 @@ public class Rol {
 
     @Override
     public String toString() {
-        return "Rol{" + "idRole=" + idRole + ", tipoRol=" + tipoRol + '}';
+        return "Rol{" + "idRol=" + idRol + ", tipoRol=" + tipoRol + '}';
     }
 }

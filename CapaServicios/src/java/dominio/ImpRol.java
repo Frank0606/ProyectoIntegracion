@@ -13,7 +13,6 @@ public class ImpRol {
         if (conexionBD != null) {
             try {
                 List<Rol> roles = conexionBD.selectList("obtenerRol.roles");
-                System.out.println("Rolesss" + roles);
                 conexionBD.commit();
                 return roles;
 

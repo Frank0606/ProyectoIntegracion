@@ -115,8 +115,11 @@ public class ImpClientes {
                     msj.setError(false);
                     msj.setMensaje("Cliente actualizado con éxito.");
                 } else {
+                    Cliente clienteError = new Cliente();
+                    clienteError.setIdCliente(-1);
+                    clienteError.setNombreCliente("No se encontró el cliente para actualizar.");
                     msj.setError(true);
-                    msj.setMensaje("No se pudo actualizar el cliente. Inténtelo más tarde.");
+                    msj.setMensaje(clienteError.getNombreCliente());
                 }
             } catch (Exception e) {
                 msj.setError(true);
@@ -132,19 +135,22 @@ public class ImpClientes {
         return msj;
     }
 
-    public static Mensaje eliminarCliente(int idCliente) {
+    public static Mensaje eliminarCliente(String correoElectronico) {
         Mensaje msj = new Mensaje();
         SqlSession conexionBD = MybatisUtil.obtenerConexion();
         if (conexionBD != null) {
             try {
-                int resultado = conexionBD.delete("ClienteMapper.eliminar", idCliente);
+                int resultado = conexionBD.delete("ClienteMapper.eliminar", correoElectronico);
                 conexionBD.commit();
                 if (resultado > 0) {
                     msj.setError(false);
                     msj.setMensaje("Cliente eliminado con éxito.");
                 } else {
+                    Cliente clienteError = new Cliente();
+                    clienteError.setIdCliente(-1);
+                    clienteError.setNombreCliente("No se encontró el cliente para eliminar.");
                     msj.setError(true);
-                    msj.setMensaje("No se pudo eliminar el cliente. Inténtelo más tarde.");
+                    msj.setMensaje(clienteError.getNombreCliente());
                 }
             } catch (Exception e) {
                 msj.setError(true);
@@ -159,4 +165,5 @@ public class ImpClientes {
         }
         return msj;
     }
+
 }
