@@ -12,7 +12,7 @@
                 <property name="url" value="jdbc:mysql://localhost:3306/timefast?serverTimezone=UTC"/>  
         
                 <property name="username" value="root"/>    
-                <property name="password" value="Minionrush55"/>
+                <property name="password" value="123456"/>
                 <property name="poolMaximumActiveConnections" value="50"/>
             </dataSource>
         </environment>
@@ -25,6 +25,7 @@
         <mapper resource="mybatis/mappers/PaqueteMapper.xml" />
         <mapper resource="mybatis/mappers/EnvioMapper.xml" />
         <mapper resource="mybatis/mappers/IniciarSesionMapper.xml" />
+        <mapper resource="mybatis/mappers/RolMapper.xml"/>
     </mappers>
 
 </configuration>
