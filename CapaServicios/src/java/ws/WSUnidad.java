@@ -19,7 +19,7 @@ import pojo.Unidad;
 @Path("unidad")
 public class WSUnidad {
 
-    @Path("obtenerTodasUnidades")
+    @Path("todos")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Unidad> obtenerUnidades() {
@@ -40,14 +40,14 @@ public class WSUnidad {
         throw new BadRequestException("Se encontro el colaborador seleccionado:");
     }
 
-    @Path("registrar")
+    @Path("agregar")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje agregarUnidad(String jsonColaborador) {
+    public Mensaje agregarUnidad(String jsonUnidad) {
         try {
             Gson gson = new Gson();
-            Unidad unidades = gson.fromJson(jsonColaborador, Unidad.class);
+            Unidad unidades = gson.fromJson(jsonUnidad, Unidad.class);
 
             return ImpUnidad.agregarUnidad(unidades);
         } catch (Exception e) {
@@ -59,24 +59,29 @@ public class WSUnidad {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje actualizarColaborador(String jsonColaborador) {
+    public Mensaje actualizarUnidad(String jsonUnidad) {
         try {
             Gson gson = new Gson();
-            Unidad unidades = gson.fromJson(jsonColaborador, Unidad.class);
+            Unidad unidades = gson.fromJson(jsonUnidad, Unidad.class);
             return ImpUnidad.actualizarUnidad(unidades);
         } catch (Exception e) {
             throw new BadRequestException();
         }
     }
 
-    @Path("eliminar/{vin}")
+    
+
+    @Path("eliminar")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarColaborador(@PathParam("vin") String vin) {
-        if (!vin.isEmpty()) {
-            return ImpUnidad.eliminarUnidad(vin);
-        } else {
-            throw new BadRequestException("ID Inválido.");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarUnidad(String jsonVin) {
+        try {
+            Gson gson = new Gson();
+            Unidad unidades = gson.fromJson(jsonVin, Unidad.class);
+            return ImpUnidad.eliminarUnidad(unidades.getVin());
+        } catch (Exception e) {
+            throw new BadRequestException();
         }
     }
 

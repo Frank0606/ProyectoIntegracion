@@ -1,5 +1,6 @@
 package dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 import mybatis.MybatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -8,40 +9,70 @@ import pojo.Unidad;
 
 public class ImpUnidad {
 
-    public static List<Unidad> obtenerUnidades() {
+
+
+     public static List<Unidad> obtenerUnidades() {
+        List<Unidad> respuesta = new ArrayList();
         SqlSession conexionBD = MybatisUtil.obtenerConexion();
         if (conexionBD != null) {
             try {
-                List<Unidad> unidades = conexionBD.selectList("unidad.unidades");
-                conexionBD.commit();
-                return unidades;
+                List<Unidad> listaUnidades = conexionBD.selectList("unidad.unidades");
+                if (listaUnidades != null) {
+                    for (Unidad unidad : listaUnidades) {
+                        respuesta.add(unidad);
+                    }
+                } else {
+                    Unidad unidad = new Unidad();
+                    unidad.setIdUnidad(-1);
+                    unidad.setVin("No hay ningun tipo unidad.");
+                    respuesta.add(unidad);
+                }
+                
             } catch (Exception e) {
-                e.printStackTrace();
-                conexionBD.rollback();
-            } finally {
-                conexionBD.close();
+                Unidad unidad = new Unidad();
+                unidad.setIdUnidad(-1);
+                unidad.setVin(e.getMessage());
+                respuesta.add(unidad);
             }
+        } else {
+            Unidad unidad = new Unidad();
+            unidad.setIdUnidad(-1);
+            unidad.setVin("Error al conectarse a la base de datos.");
+            respuesta.add(unidad);
         }
-        return null;
+        return respuesta;
     }
+    
 
+    
     public static Unidad obtenerUnidadVin(String vin) {
-        SqlSession conexionBD = MybatisUtil.obtenerConexion();
-        if (conexionBD != null) {
-            try {
-                Unidad unidades = conexionBD.selectOne("unidad.unidadVin", vin);
-                conexionBD.commit();
-                return unidades;
-            } catch (Exception e) {
-                e.printStackTrace();
-                conexionBD.rollback();
+    SqlSession conexionBD = MybatisUtil.obtenerConexion();
+    Unidad respuesta = new Unidad();
 
-            } finally {
-                conexionBD.close();
+    if (conexionBD != null) {
+        try {
+            // Consultar la unidad directamente
+            Unidad unidadDB = conexionBD.selectOne("unidad.unidadVin", vin);
+            System.out.println("que pedo carnal"+unidadDB);
+            if (unidadDB != null) {
+                respuesta = unidadDB;
+            } else {
+                respuesta.setIdUnidad(-1);
+                respuesta.setVin("No se encuentra el nombre del tipo de unidad.");
             }
+        } catch (Exception e) {
+            respuesta.setIdUnidad(-1);
+            respuesta.setVin(e.getMessage());
+        } finally {
+            conexionBD.close();
         }
-        return null;
+    } else {
+        respuesta.setIdUnidad(-1);
+        respuesta.setVin("Error al conectarse a la base de datos.");
     }
+
+    return respuesta;
+}
 
     public static Mensaje agregarUnidad(Unidad unidad) {
         Mensaje msj = new Mensaje();
