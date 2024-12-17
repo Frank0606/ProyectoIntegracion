@@ -55,4 +55,20 @@ public class WSIniciarSesion {
 
         throw new BadRequestException();
     }
+    
+    @Path("conductor")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public IniciarSesionColaborador iniciarSesionConductor(String jsonCredencialesColaborador) {
+        Gson gson = new Gson();
+        Colaborador colaborador = gson.fromJson(jsonCredencialesColaborador, Colaborador.class);
+        if ((colaborador.getNoPersonal() != null && !colaborador.getNoPersonal().isEmpty()) 
+                && (colaborador.getContrasenia() != null && !colaborador.getContrasenia().isEmpty()) 
+                && colaborador.getNoPersonal().length() <= 10) {
+            return ImpIniciarSesion.validarSesionConductor(colaborador.getNoPersonal(), colaborador.getContrasenia());
+        }
+
+        throw new BadRequestException();
+    }
 }

@@ -8,18 +8,34 @@ package clienteescritorio.utilidades;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 /**
  *
  * @author f_dan
  */
 public class Funciones {
-    
-    public void cargarVista(String fxml, AnchorPane contenedorPrincipal) {
+
+    public static <T> void cargarVistaConDatos(String fxml, AnchorPane contenedorPrincipal, T datos, ControladorPrincipal<T> controlador) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Pane newLoadedPane = loader.load();
+            FXMLLoader loader = new FXMLLoader(Funciones.class.getResource(fxml));
+            AnchorPane newLoadedPane = loader.load();
+            controlador = loader.getController();
+            controlador.setDatos(datos);
+            contenedorPrincipal.getChildren().clear();
+            contenedorPrincipal.getChildren().add(newLoadedPane);
+            AnchorPane.setTopAnchor(newLoadedPane, 0.0);
+            AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
+            AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
+            AnchorPane.setRightAnchor(newLoadedPane, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static <T> void cargarVista(String fxml, AnchorPane contenedorPrincipal) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Funciones.class.getResource(fxml));
+            AnchorPane newLoadedPane = loader.load();
             contenedorPrincipal.getChildren().clear();
             contenedorPrincipal.getChildren().add(newLoadedPane);
             AnchorPane.setTopAnchor(newLoadedPane, 0.0);

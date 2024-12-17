@@ -80,12 +80,9 @@ public class WSCliente {
     @Path("eliminar/{correoElectronico}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarCliente(@PathParam("correoElectronico") String correoElectronico) {
-        if (correoElectronico != null && !correoElectronico.isEmpty()) {
-            return ImpClientes.eliminarCliente(correoElectronico);
-        } else {
-            throw new BadRequestException("Correo electrónico inválido.");
-        }
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarCliente( String correoElectronico) {
+        
     }
 
 }

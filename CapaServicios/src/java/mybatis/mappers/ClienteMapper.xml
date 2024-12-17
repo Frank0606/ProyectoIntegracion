@@ -16,6 +16,7 @@
         correoElectronico, 
         contrasenia, 
         fotografia, 
+        numeroCasa,
         nombreCliente
         FROM cliente;
     </select>
@@ -30,6 +31,7 @@
         cp, 
         correoElectronico, 
         contrasenia, 
+        numeroCasa,
         fotografia, 
         nombreCliente
         ) 
@@ -39,6 +41,7 @@
         #{apellidoPaterno}, 
         #{calle}, 
         #{colonia}, 
+        #{numeroCasa}, 
         #{cp}, 
         #{correoElectronico}, 
         #{contrasenia}, 
@@ -55,6 +58,7 @@
         apellidoPaterno = #{apellidoPaterno}, 
         calle = #{calle}, 
         colonia = #{colonia}, 
+        numeroCasa = #{numeroCasa},
         cp = #{cp}, 
         contrasenia = #{contrasenia}, 
         fotografia = #{fotografia}, 

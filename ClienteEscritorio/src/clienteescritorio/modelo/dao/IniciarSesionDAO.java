@@ -20,7 +20,7 @@ public class IniciarSesionDAO {
         colaborador.setContrasenia(contrasenia);
         String parametros = gson.toJson(colaborador);
 
-        RespuestaHTTP respuestaWS = ConexionWS.peticionPOSTJson(urlServicio, parametros);
+        RespuestaHTTP respuestaWS = ConexionWS.peticionPOSTJSON(urlServicio, parametros);
         
         if(respuestaWS.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
             respuestaLogin = gson.fromJson(respuestaWS.getContenido(), IniciarSesion.class);
