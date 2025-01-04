@@ -1,4 +1,4 @@
-package ws;
+JSONpackage ws;
 
 import com.google.gson.Gson;
 import dominio.ImpIniciarSesion;

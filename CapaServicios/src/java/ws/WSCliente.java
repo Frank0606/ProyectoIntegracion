@@ -77,12 +77,4 @@ public class WSCliente {
         }
     }
 
-    @Path("eliminar/{correoElectronico}")
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarCliente( String correoElectronico) {
-        
-    }
-
 }
