@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "uv.tc"
+    namespace = "com.example.clientemovil"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "uv.tc"
+        applicationId = "com.example.clientemovil"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

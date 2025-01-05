@@ -1,4 +1,4 @@
-package uv.tc.poko
+package com.example.clientemovil.poko
 
 data class Mensaje(
     val error : Boolean,
