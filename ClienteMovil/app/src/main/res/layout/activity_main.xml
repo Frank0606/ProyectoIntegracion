@@ -5,52 +5,71 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
-    <!-- Título: "Time - Fast" -->
+    <!-- Rectángulo rojo para el encabezado -->
+    <View
+        android:id="@+id/rectangleHeader"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- ListView para mostrar los elementos -->
+    <!-- Título: "Time - Fast" -->
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="16dp"
-        android:text="Time - Fast"
+        android:text="TIME - FAST"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/lvPedidos"
-        android:layout_width="407dp"
-        android:layout_height="527dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rectangleHeader"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangleHeader"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView5" />
+        app:layout_constraintHorizontal_bias="0.5" />
 
+    <!-- Botón de imagen para el perfil dentro del encabezado -->
     <ImageButton
         android:id="@+id/ibPerfil"
-        android:layout_width="112dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@android:color/transparent"
+        android:layout_marginEnd="16dp"
+        tools:srcCompat="@tools:sample/avatars"
+        app:layout_constraintTop_toTopOf="@+id/rectangleHeader"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangleHeader"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- ListView para mostrar los elementos -->
+    <ListView
+        android:id="@+id/lvPedidos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/rectangleHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnEstado" />
+
+    <!-- Botón de estado -->
     <Button
         android:id="@+id/btnEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="664dp"
         android:text="Estado"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 

@@ -7,34 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".UsuarioActivity">
 
+    <!-- Rectángulo rojo para el encabezado -->
+    <View
+        android:id="@+id/rectangleHeader"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Título: "Time - Fast" dentro del encabezado -->
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="16dp"
-        android:text="Time - Fast"
+        android:text="TIME - FAST"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rectangleHeader"
+        app:layout_constraintBottom_toBottomOf="@id/rectangleHeader" />
 
+    <!-- Imagen de perfil no modificada -->
+
+    <!-- Botón para editar foto no modificado -->
     <ImageView
         android:id="@+id/imFoto"
-        android:layout_width="99dp"
-        android:layout_height="104dp"
-        android:layout_marginStart="296dp"
+        android:layout_width="64dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="332dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <!-- Campos de texto con títulos en negritas -->
     <ImageButton
         android:id="@+id/imEditarFoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -46,6 +62,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="324dp"
         android:text="Nombre:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,6 +82,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="392dp"
         android:text="CURP:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,6 +102,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="464dp"
         android:text="Correo electronico:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,6 +122,7 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="536dp"
         android:text="Número de Personal:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,6 +142,7 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="616dp"
         android:text="Rol:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,6 +162,7 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="680dp"
         android:text="Contraseña:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -153,6 +175,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Botón de editar modificado -->
     <Button
         android:id="@+id/btnActualizar"
         android:layout_width="wrap_content"
@@ -160,6 +183,9 @@
         android:layout_marginStart="164dp"
         android:layout_marginTop="752dp"
         android:text="Editar"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

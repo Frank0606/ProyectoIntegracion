@@ -7,12 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".Estado">
 
+    <!-- Rectángulo rojo para el encabezado -->
+    <View
+        android:id="@+id/rectangleHeader"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Botón de imagen del perfil dentro del encabezado -->
+
+    <!-- Título: "Time - Fast" centrado en el rectángulo rojo -->
     <ImageButton
         android:id="@+id/ibPerfil2"
-        android:layout_width="112dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="72dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="308dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -21,31 +35,33 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="16dp"
-        android:text="Time - Fast"
+        android:text="TIME - FAST"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rectangleHeader"
+        app:layout_constraintBottom_toBottomOf="@id/rectangleHeader" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="55dp"
         android:layout_height="52dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
+        app:srcCompat="@drawable/circular_placeholder" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="116dp"
         android:text="No. de Guia:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,8 +69,10 @@
         android:id="@+id/tvNumeroGuia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="148dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,6 +83,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="236dp"
         android:text="Origen:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,6 +103,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="336dp"
         android:text="Destino:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,6 +123,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="428dp"
         android:text="Paquetes:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,6 +143,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="528dp"
         android:text="Estado:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,6 +163,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="600dp"
         android:text="Contacto:"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -160,6 +183,9 @@
         android:layout_marginStart="252dp"
         android:layout_marginTop="528dp"
         android:text="Cambiar"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/holo_red_dark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
