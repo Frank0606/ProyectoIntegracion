@@ -33,7 +33,7 @@ public class ImpColaboradores {
 
                 conexionbd.rollback();
             } finally {
-                conexionbd.close();
+                conexionbd.close(); // Cierre de conexión
             }
         } else {
             Colaborador colaborador = new Colaborador();
@@ -66,7 +66,7 @@ public class ImpColaboradores {
 
                 conexionBD.rollback();
             } finally {
-                conexionBD.close();
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             respuesta = new Colaborador();
@@ -93,6 +93,8 @@ public class ImpColaboradores {
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
@@ -113,11 +115,14 @@ public class ImpColaboradores {
                     msj.setMensaje("Colaborador(a) actualizado con exito.");
                 } else {
                     msj.setError(true);
-                    msj.setMensaje("No se pudo actualizar al colaborador(a), inténtelo más tarde.");
+                    //msj.setMensaje("No se pudo actualizar al colaborador(a), inténtelo más tarde.");
+                    msj.setMensaje("resultado: " + String.valueOf(resultado));
                 }
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
@@ -143,11 +148,97 @@ public class ImpColaboradores {
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
             msj.setMensaje("Por el momento el servicio no esta disponible.");
         }
         return msj;
+    }
+
+    public static Mensaje asignarUnidad(Colaborador colaborador) {
+        Mensaje msj = new Mensaje();
+        SqlSession conexionBD = MybatisUtil.obtenerConexion();
+        if (conexionBD != null) {
+            try {
+                if (colaborador.getNoPersonal().equals("Liberar")) {
+                    int resultado = conexionBD.update("ColaboradorMapper.desasignarUnidad", colaborador.getIdUnidad());
+                    conexionBD.commit();
+                    if (resultado > 0) {
+                        msj.setError(false);
+                        msj.setMensaje("Unidad liberada con éxito");
+                    } else {
+                        msj.setError(true);
+                        msj.setMensaje("No se pudo liberar la unidad, intentelo más tarde.");
+                    }
+                } else {
+                    int count = conexionBD.selectOne("ColaboradorMapper.verificarUnidad", colaborador.getIdUnidad());
+                    if (count > 0) {
+                        msj.setError(true);
+                        msj.setMensaje("El idUnidad ya está asignado a otro colaborador.");
+                    } else {
+                        int resultado = conexionBD.update("ColaboradorMapper.asignarUnidad", colaborador);
+                        conexionBD.commit();
+                        if (resultado > 0) {
+                            msj.setError(false);
+                            msj.setMensaje("Unidad asignada con éxito");
+                        } else {
+                            msj.setError(true);
+                            msj.setMensaje("No se pudo realizar la asignación, intentelo más tarde.");
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                msj.setError(true);
+                msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
+            }
+        } else {
+            msj.setError(true);
+            msj.setMensaje("Por el momento el servicio no está disponible.");
+        }
+        return msj;
+    }
+
+    public static byte[] obtenerFoto(String noPersonal) {
+        byte[] foto = null;
+        SqlSession conexionBD = MybatisUtil.obtenerConexion();
+        if (conexionBD != null) {
+            try {
+                foto = conexionBD.selectOne("ColaboradorMapper.obtenerFoto", noPersonal);
+                if (foto == null) {
+                    foto = new byte[0]; // O cualquier valor predeterminado
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close(); // Cierre de conexión
+            }
+        }
+        return foto;
+    }
+
+    public static boolean actualizarFoto(String noPersonal, byte[] foto) {
+        SqlSession conexionBD = MybatisUtil.obtenerConexion();
+        if (conexionBD != null) {
+            try {
+                Colaborador colaborador = new Colaborador();
+                colaborador.setNoPersonal(noPersonal);
+                colaborador.setFotografia(foto);
+                int filasActualizadas = conexionBD.update("ColaboradorMapper.actualizarFoto", colaborador);
+                conexionBD.commit();
+                return filasActualizadas > 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                conexionBD.close(); // Cierre de conexión 
+            }
+        } else {
+            return false;
+        }
     }
 }

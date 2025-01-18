@@ -41,10 +41,10 @@
         #{apellidoPaterno}, 
         #{calle}, 
         #{colonia}, 
-        #{numeroCasa}, 
         #{cp}, 
         #{correoElectronico}, 
         #{contrasenia}, 
+        #{numeroCasa},
         #{fotografia}, 
         #{nombreCliente}
         );

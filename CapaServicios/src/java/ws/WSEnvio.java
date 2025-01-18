@@ -20,7 +20,7 @@ import pojo.Mensaje;
 
 @Path("envio")
 public class WSEnvio {
-    
+
     @Context
     private UriInfo context;
 
@@ -34,7 +34,7 @@ public class WSEnvio {
     public List<Envio> obtenerEnvios() {
         return ImpEnvios.obtenerEnvios();
     }
-    
+
     @Path("numero-guia/{numeroGuia}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,7 +45,7 @@ public class WSEnvio {
 
         throw new BadRequestException();
     }
-    
+
     @Path("agregar")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,7 +59,7 @@ public class WSEnvio {
             throw new BadRequestException();
         }
     }
-    
+
     @Path("actualizar")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,18 +73,30 @@ public class WSEnvio {
             throw new BadRequestException();
         }
     }
-    
-    @Path("eliminar")
+
+    @Path("eliminar/{numeroGuia}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarEnvio(String jsonNumeroGuiaEnvio) {
+    public Mensaje eliminarEnvio(@PathParam("numeroGuia") String numeroGuia) {
         try {
-            Gson gson = new Gson();
-            Envio envio = gson.fromJson(jsonNumeroGuiaEnvio, Envio.class);
-            return ImpEnvios.eliminarEnvio(envio.getNumeroGuia());
+            return ImpEnvios.eliminarEnvio(numeroGuia);
         } catch (Exception e) {
             throw new BadRequestException();
         }
     }
+
+    @Path("estatus")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje cambiarEstatusEnvio(String jsonEstatus) {
+        try {
+            Gson gson = new Gson();
+            Envio envio = gson.fromJson(jsonEstatus, Envio.class);
+            return ImpEnvios.cambiarEstatusEnvio(envio);
+        } catch (Exception e) {
+            throw new BadRequestException();
+        }
+    }
+
 }

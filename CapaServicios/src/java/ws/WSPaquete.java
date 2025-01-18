@@ -34,7 +34,7 @@ public class WSPaquete {
     public List<Paquete> obtenerPaquetes() {
         return ImpPaquetes.obtenerPaquetes();
     }
-    
+
     @Path("id-envio/{idEnvio}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,7 +45,7 @@ public class WSPaquete {
 
         throw new BadRequestException();
     }
-    
+
     @Path("agregar")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,7 +59,7 @@ public class WSPaquete {
             throw new BadRequestException();
         }
     }
-    
+
     @Path("actualizar")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,17 +73,14 @@ public class WSPaquete {
             throw new BadRequestException();
         }
     }
-    
-    @Path("eliminar")
+
+    @Path("eliminar/{idPaquete}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarPaquete(String jsonIdPaquete) {
-        try {
-            Gson gson = new Gson();
-            Paquete paquete = gson.fromJson(jsonIdPaquete, Paquete.class);
-            return ImpPaquetes.eliminarPaquete(paquete.getIdPaquete());
-        } catch (Exception e) {
+    public Mensaje eliminarPaquete(@PathParam("idPaquete") String idPaquete) {
+        if (!idPaquete.isEmpty()) {
+            return ImpPaquetes.eliminarPaquete(idPaquete);
+        } else {
             throw new BadRequestException();
         }
     }

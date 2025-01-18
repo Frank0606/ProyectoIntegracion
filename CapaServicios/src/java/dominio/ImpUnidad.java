@@ -19,7 +19,7 @@ public class ImpUnidad {
                 e.printStackTrace();
                 conexionBD.rollback();
             } finally {
-                conexionBD.close();
+                conexionBD.close(); // Cierre de conexión
             }
         }
         return null;
@@ -35,9 +35,8 @@ public class ImpUnidad {
             } catch (Exception e) {
                 e.printStackTrace();
                 conexionBD.rollback();
-
             } finally {
-                conexionBD.close();
+                conexionBD.close(); // Cierre de conexión
             }
         }
         return null;
@@ -53,7 +52,6 @@ public class ImpUnidad {
                 if (resultado > 0) {
                     msj.setError(false);
                     msj.setMensaje("Unidad registrada con exito");
-
                 } else {
                     msj.setError(true);
                     msj.setMensaje("No se pudo realizar el registro, intentelo mas tarde");
@@ -61,10 +59,12 @@ public class ImpUnidad {
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
-            msj.setMensaje("\"Por el momento el servicio no esta disponible.\"");
+            msj.setMensaje("Por el momento el servicio no esta disponible.");
         }
         return msj;
     }
@@ -86,6 +86,8 @@ public class ImpUnidad {
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
@@ -111,6 +113,8 @@ public class ImpUnidad {
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
@@ -118,5 +122,4 @@ public class ImpUnidad {
         }
         return msj;
     }
-
 }

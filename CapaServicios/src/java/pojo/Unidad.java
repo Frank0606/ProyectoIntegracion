@@ -9,14 +9,14 @@ public class Unidad {
     private String vin;
     private String noIdentificacion;
     private Integer idTipoUnidad;
-    private Integer idRol;
-    private String rol;
     private String tipoUnidad;
+    private String noPersonal;
 
     public Unidad() {
     }
 
-    public Unidad(Integer idUnidad, String marca, String modelo, int anio, String vin, String noIdentificacion, Integer idTipoUnidad, Integer idRol, String rol, String tipoUnidad) {
+    public Unidad(Integer idUnidad, String marca, String modelo, int anio, String vin, 
+            String noIdentificacion, Integer idTipoUnidad, String tipoUnidad, String noPersonal) {
         this.idUnidad = idUnidad;
         this.marca = marca;
         this.modelo = modelo;
@@ -24,9 +24,16 @@ public class Unidad {
         this.vin = vin;
         this.noIdentificacion = noIdentificacion;
         this.idTipoUnidad = idTipoUnidad;
-        this.idRol = idRol;
-        this.rol = rol;
         this.tipoUnidad = tipoUnidad;
+        this.noPersonal = noPersonal;
+    }
+
+    public String getNoPersonal() {
+        return noPersonal;
+    }
+
+    public void setNoPersonal(String noPersonal) {
+        this.noPersonal = noPersonal;
     }
 
     public Integer getIdUnidad() {
@@ -85,22 +92,6 @@ public class Unidad {
         this.idTipoUnidad = idTipoUnidad;
     }
 
-    public Integer getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
     public String getTipoUnidad() {
         return tipoUnidad;
     }
@@ -111,6 +102,7 @@ public class Unidad {
 
     @Override
     public String toString() {
-        return "Unidad{" + "idUnidad=" + idUnidad + ", marca=" + marca + ", modelo=" + modelo + ", anio=" + anio + ", vin=" + vin + ", noIdentificacion=" + noIdentificacion + ", idTipoUnidad=" + idTipoUnidad + ", idRol=" + idRol + ", rol=" + rol + ", tipoUnidad=" + tipoUnidad + '}';
+        return "Unidad{" + "idUnidad=" + idUnidad + ", marca=" + marca + ", modelo=" + modelo + ", anio=" + anio + ", vin=" + vin + ", noIdentificacion=" + noIdentificacion + ", idTipoUnidad=" + idTipoUnidad + ", tipoUnidad=" + tipoUnidad + ", noPersonal=" + noPersonal + '}';
     }
+
 }

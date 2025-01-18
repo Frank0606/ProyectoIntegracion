@@ -6,6 +6,8 @@ import clienteescritorio.utilidades.Alertas;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
 public class FXMLInicioSesionController implements Initializable {
@@ -34,7 +37,20 @@ public class FXMLInicioSesionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        configurarTextField(tfNoPersonal, Pattern.compile("[cC0-9]{0,4}"));
+        configurarTextField(tfContrasena, Pattern.compile(".{0,100}"));
+    }
+
+    private void configurarTextField(TextField textField, Pattern pattern) {
+        TextFormatter<String> formatter = new TextFormatter<>((UnaryOperator<TextFormatter.Change>) change -> {
+            String newText = change.getControlNewText();
+            if (pattern.matcher(newText).matches()) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+        textField.setTextFormatter(formatter);
     }
 
     @FXML
@@ -52,7 +68,7 @@ public class FXMLInicioSesionController implements Initializable {
         labelErrorNoPersonal.setText("");
         labelErrorContrasena.setText("");
 
-        if (noPersonal.length() < 4 || noPersonal.length() > 4 || !noPersonal.startsWith("C") 
+        if (noPersonal.length() < 4 || noPersonal.length() > 4 || !noPersonal.startsWith("C")
                 || noPersonal.isEmpty()) {
             valido = false;
             labelErrorNoPersonal.setText("No. de personal no valido");
@@ -69,18 +85,21 @@ public class FXMLInicioSesionController implements Initializable {
         IniciarSesion respuestaIniciarSesion = IniciarSesionDAO.iniciarSesion(noPersonal, contrasenia);
         if (!respuestaIniciarSesion.getError()) {
             Alertas.mostrarAlertaSimple("¡Credenciales correctas!",
-                    "Bienvenido " + respuestaIniciarSesion.getColaborador().getNombreColaborador(), 
+                    "Bienvenido " + respuestaIniciarSesion.getColaborador().getNombreColaborador(),
                     Alert.AlertType.INFORMATION);
-            cambiarPantallaPrincipal();
+            cambiarPantallaPrincipal(noPersonal);
         } else {
             Alertas.mostrarAlertaSimple("Problema", respuestaIniciarSesion.getMensaje(), Alert.AlertType.ERROR);
         }
     }
 
-    private void cambiarPantallaPrincipal() {
+    private void cambiarPantallaPrincipal(String noPersonal) {
         try {
             Stage escenarioBase = (Stage) tfNoPersonal.getScene().getWindow();
-            Parent principal = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPrincipal.fxml"));
+            Parent principal = loader.load();
+            FXMLPrincipalController controlador = loader.getController();
+            controlador.setNoPersonal(noPersonal);
             Scene escenaPrincipal = new Scene(principal);
             escenarioBase.setScene(escenaPrincipal);
             escenarioBase.setTitle("Sistema - Principal");
@@ -89,4 +108,5 @@ public class FXMLInicioSesionController implements Initializable {
             Alertas.mostrarAlertaSimple("Error", "En este momento no se pudo ingresar a la pantalla inicial", Alert.AlertType.ERROR);
         }
     }
+
 }

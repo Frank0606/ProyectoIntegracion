@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritorio.pojo;
 
-/**
- *
- * @author Manzano
- */
 public class Cliente {
     
     private Integer idCliente;
@@ -136,5 +127,10 @@ public class Cliente {
 
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
+    }
+
+    @Override
+    public String toString() {
+        return nombreCliente + " " + apellidoPaterno + " - " + calle + " " + numeroCasa + ", " + colonia + " " + cp;
     }
 }

@@ -10,7 +10,7 @@ import pojo.Paquete;
 public class ImpPaquetes {
 
     public static List<Paquete> obtenerPaquetes() {
-        List<Paquete> respuesta = new ArrayList();
+        List<Paquete> respuesta = new ArrayList<>();
         SqlSession conexionBD = MybatisUtil.obtenerConexion();
         if (conexionBD != null) {
             try {
@@ -30,6 +30,8 @@ public class ImpPaquetes {
                 paquete.setIdPaquete("-1");
                 paquete.setDescripcion(e.getMessage());
                 respuesta.add(paquete);
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             Paquete paquete = new Paquete();
@@ -41,7 +43,7 @@ public class ImpPaquetes {
     }
 
     public static List<Paquete> obtenerPaqueteIdEnvio(String idEnvio) {
-        List<Paquete> respuesta = new ArrayList();
+        List<Paquete> respuesta = new ArrayList<>();
         SqlSession conexionBD = MybatisUtil.obtenerConexion();
         if (conexionBD != null) {
             try {
@@ -61,6 +63,8 @@ public class ImpPaquetes {
                 paquete.setIdPaquete("-1");
                 paquete.setDescripcion(e.getMessage());
                 respuesta.add(paquete);
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             Paquete paquete = new Paquete();
@@ -73,79 +77,82 @@ public class ImpPaquetes {
 
     public static Mensaje registrarPaquete(Paquete paquete) {
         Mensaje msj = new Mensaje();
-        SqlSession conexionbd = MybatisUtil.obtenerConexion();
-        if (conexionbd != null) {
+        SqlSession conexionBD = MybatisUtil.obtenerConexion();
+        if (conexionBD != null) {
             try {
-                int resultado = conexionbd.insert("paquete.agregarPaquete", paquete);
-                conexionbd.commit();
+                int resultado = conexionBD.insert("paquete.agregarPaquete", paquete);
+                conexionBD.commit();
                 if (resultado > 0) {
                     msj.setError(false);
-                    msj.setMensaje("Se agrego un paquete exitosamente.");
+                    msj.setMensaje("Se agregó un paquete exitosamente.");
                 } else {
                     msj.setError(true);
-                    msj.setMensaje("No se pudo agregar el paquete. Intentalo de nuevo.");
+                    msj.setMensaje("No se pudo agregar el paquete. Inténtalo de nuevo.");
                 }
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
-            msj.setMensaje("Por el momento no esta disponible el servicio. Intentelo mas tarde.");
+            msj.setMensaje("Por el momento no está disponible el servicio. Inténtelo más tarde.");
         }
-
         return msj;
     }
 
     public static Mensaje actualizarPaquete(Paquete paquete) {
         Mensaje msj = new Mensaje();
-        SqlSession conexionbd = MybatisUtil.obtenerConexion();
-        if (conexionbd != null) {
+        SqlSession conexionBD = MybatisUtil.obtenerConexion();
+        if (conexionBD != null) {
             try {
-                int resultado = conexionbd.update("paquete.actualizarPaquete", paquete);
-                conexionbd.commit();
+                int resultado = conexionBD.update("paquete.actualizarPaquete", paquete);
+                conexionBD.commit();
                 if (resultado > 0) {
                     msj.setError(false);
-                    msj.setMensaje("Se actualizo el paquete correctamente.");
+                    msj.setMensaje("Se actualizó el paquete correctamente.");
                 } else {
                     msj.setError(true);
-                    msj.setMensaje("No se pudo aztualizar el paquete. Intentalo de nuevo.");
+                    msj.setMensaje("No se pudo actualizar el paquete. Inténtalo de nuevo.");
                 }
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
-            msj.setMensaje("Por el momento no esta disponible el servicio. Intentelo mas tarde.");
+            msj.setMensaje("Por el momento no está disponible el servicio. Inténtelo más tarde.");
         }
-
         return msj;
     }
 
     public static Mensaje eliminarPaquete(String idPaquete) {
         Mensaje msj = new Mensaje();
-        SqlSession conexionbd = MybatisUtil.obtenerConexion();
-        if (conexionbd != null) {
+        SqlSession conexionBD = MybatisUtil.obtenerConexion();
+        if (conexionBD != null) {
             try {
-                int resultado = conexionbd.delete("paquete.eliminarPaquete", idPaquete);
-                conexionbd.commit();
+                int resultado = conexionBD.delete("paquete.eliminarPaquete", idPaquete);
+                conexionBD.commit();
                 if (resultado > 0) {
                     msj.setError(false);
-                    msj.setMensaje("Se elimino al paquete correctamente.");
+                    msj.setMensaje("Se eliminó el paquete correctamente.");
                 } else {
                     msj.setError(true);
-                    msj.setMensaje("No se pudo eliminar al paquete. Intentalo de nuevo.");
+                    msj.setMensaje("No se pudo eliminar el paquete. Inténtalo de nuevo.");
                 }
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje(e.getMessage());
+            } finally {
+                conexionBD.close(); // Cierre de conexión
             }
         } else {
             msj.setError(true);
-            msj.setMensaje("Por el momento no esta disponible el servicio. Intentelo mas tarde.");
+            msj.setMensaje("Por el momento no está disponible el servicio. Inténtelo más tarde.");
         }
-
         return msj;
     }
 }

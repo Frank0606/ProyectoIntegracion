@@ -172,5 +172,10 @@
             <Font name="Candara" size="18.0" />
          </font>
       </Label>
+      <Label fx:id="labelErrorNumeroCasa" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="357.0" layoutY="468.0" prefHeight="22.0" prefWidth="214.0" textAlignment="RIGHT" textFill="#850303">
+         <font>
+            <Font name="Candara Bold" size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

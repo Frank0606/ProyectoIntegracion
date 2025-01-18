@@ -2,34 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="envio">
     <select id="obtenerEnvios" resultType="pojo.Envio">
-        SELECT *
-        FROM envio
+        SELECT e.idEnvio, CONCAT(c.calle, ' ', c.numeroCasa, ' ', c.colonia, ' ', c.cp) as destino, e.calle, 
+        e.numeroGuia, e.costoEnvio, e.numero, e.colonia, e.cp, e.ciudad, 
+        e.estado, e.estatus, e.historialEstados, c.idCliente, CONCAT(c.nombreCliente, ' ', c.apellidoPaterno, ' ', c.apellidoMaterno) as 
+        nombreCliente, co.idColaborador, CONCAT(co.nombreColaborador, ' ', co.apellidoPaterno, ' ', co.apellidoMaterno) as nombreColaborador
+        FROM envio e
+        INNER JOIN cliente c ON c.idCliente = e.idCliente
+        INNER JOIN colaborador co ON co.idColaborador = e.idColaborador
     </select>
     <select id="obtenerEnvioNoGuia" resultType="pojo.Envio">
-        SELECT *
-        FROM envio
+        SELECT e.idEnvio, CONCAT(c.calle, ' ', c.numeroCasa, ' ', c.colonia, ' ', c.cp) as destino, e.calle, 
+        e.numeroGuia, e.costoEnvio, e.numero, e.colonia, e.cp, e.ciudad, 
+        e.estado, e.estatus, e.historialEstados, c.idCliente, CONCAT(c.nombreCliente, ' ', c.apellidoPaterno, ' ', c.apellidoMaterno) 
+        as nombreCliente, co.idColaborador, CONCAT(co.nombreColaborador, ' ', co.apellidoPaterno, ' ', co.apellidoMaterno) as nombreColaborador
+        FROM envio e
+        INNER JOIN cliente c ON c.idCliente = e.idCliente
+        INNER JOIN colaborador co ON co.idColaborador = e.idColaborador
         WHERE numeroGuia = #{numeroGuia}
     </select>
     <insert id="agregarEnvio" parameterType="pojo.Envio">
-        INSERT INTO envio(origen, calle, numeroGuia, costoEnvio, numeroCasa, colonia, cp, ciudad, estado, estatus, idCliente)
-        VALUES(#{origen}, #{calle}, #{numeroGuia}, #{costoEnvio}, #{numeroCasa}, #{colonia}, #{cp}, #{ciudad}, #{estado}, #{estatus}, #{idCliente})
+        INSERT INTO envio(idEnvio, calle, numeroGuia, costoEnvio, numero, colonia, cp, ciudad, estado, historialEstados, estatus, 
+        idCliente, idColaborador)
+        VALUES(#{idEnvio}, #{calle}, #{numeroGuia}, #{costoEnvio}, #{numero}, #{colonia}, #{cp}, #{ciudad}, 
+        #{estado}, #{historialEstados}, #{estatus}, #{idCliente}, #{idColaborador})
     </insert>
     <update id="actualizarEnvio" parameterType="pojo.Envio">
         UPDATE envio
-        SET origen = #{origen},
-        calle = #{calle},
+        SET calle = #{calle},
         costoEnvio = #{costoEnvio},
-        numeroCasa = #{numeroCasa},
+        numero = #{numero},
         colonia = #{colonia},
         cp = #{cp},
         ciudad = #{ciudad},
         estado = #{estado},
         estatus = #{estatus},
-        idCliente = #{idCliente}
+        idCliente = #{idCliente},
+        idColaborador = #{idColaborador}
         WHERE numeroGuia = #{numeroGuia}
     </update>
-    <delete id="eliminarEnvio" parameterType="pojo.Envio">
+    <delete id="eliminarEnvio" parameterType="java.lang.String">
         DELETE FROM envio 
         WHERE numeroGuia = #{numeroGuia}
     </delete>
+    <update id="cambiarEstatusEnvio" parameterType="pojo.Envio">
+        UPDATE envio
+        SET
+        estatus = #{estatus},
+        historialEstados = #{historialEstados}
+        WHERE numeroGuia = #{numeroGuia}
+    </update>
 </mapper>

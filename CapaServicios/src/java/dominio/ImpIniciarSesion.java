@@ -16,7 +16,7 @@ public class ImpIniciarSesion {
         SqlSession conexionbd = MybatisUtil.obtenerConexion();
         if (conexionbd != null) {
             try {
-                HashMap<String, String> parametros = new LinkedHashMap();
+                HashMap<String, String> parametros = new LinkedHashMap<>();
                 parametros.put("noPersonal", noPersonal);
                 parametros.put("contrasenia", contrasenia);
                 Colaborador colaborador = conexionbd.selectOne("sesion.iniciarSesionColaborador", parametros);
@@ -31,10 +31,12 @@ public class ImpIniciarSesion {
             } catch (Exception e) {
                 respuesta.setError(true);
                 respuesta.setMensaje(e.getMessage());
+            } finally {
+                conexionbd.close(); // Cierre de conexión
             }
         } else {
             respuesta.setError(true);
-            respuesta.setMensaje("No se pudo consultar la informacion en este momento.");
+            respuesta.setMensaje("No se pudo consultar la información en este momento.");
         }
         return respuesta;
     }
@@ -44,7 +46,7 @@ public class ImpIniciarSesion {
         SqlSession conexionbd = MybatisUtil.obtenerConexion();
         if (conexionbd != null) {
             try {
-                HashMap<String, String> parametros = new LinkedHashMap();
+                HashMap<String, String> parametros = new LinkedHashMap<>();
                 parametros.put("correo", correo);
                 parametros.put("contrasenia", contrasenia);
                 Cliente cliente = conexionbd.selectOne("sesion.iniciarSesionCliente", parametros);
@@ -59,10 +61,12 @@ public class ImpIniciarSesion {
             } catch (Exception e) {
                 respuesta.setError(true);
                 respuesta.setMensaje(e.getMessage());
+            } finally {
+                conexionbd.close(); // Cierre de conexión
             }
         } else {
             respuesta.setError(true);
-            respuesta.setMensaje("No se pudo consultar la informacion en este momento.");
+            respuesta.setMensaje("No se pudo consultar la información en este momento.");
         }
         return respuesta;
     }
@@ -72,7 +76,7 @@ public class ImpIniciarSesion {
         SqlSession conexionbd = MybatisUtil.obtenerConexion();
         if (conexionbd != null) {
             try {
-                HashMap<String, String> parametros = new LinkedHashMap();
+                HashMap<String, String> parametros = new LinkedHashMap<>();
                 parametros.put("noPersonal", noPersonal);
                 parametros.put("contrasenia", contrasenia);
                 Colaborador colaborador = conexionbd.selectOne("sesion.iniciarSesionConductor", parametros);
@@ -82,15 +86,17 @@ public class ImpIniciarSesion {
                     respuesta.setColaborador(colaborador);
                 } else {
                     respuesta.setError(true);
-                    respuesta.setMensaje("Lo sentimos, no cuentas con los permisos necesarios para ser conductor.");
+                    respuesta.setMensaje("Lo sentimos, no cuentas con los permisos necesarios. No eres conductor.");
                 }
             } catch (Exception e) {
                 respuesta.setError(true);
                 respuesta.setMensaje(e.getMessage());
+            } finally {
+                conexionbd.close(); // Cierre de conexión
             }
         } else {
             respuesta.setError(true);
-            respuesta.setMensaje("No se pudo consultar la informacion en este momento.");
+            respuesta.setMensaje("No se pudo consultar la información en este momento.");
         }
         return respuesta;
     }

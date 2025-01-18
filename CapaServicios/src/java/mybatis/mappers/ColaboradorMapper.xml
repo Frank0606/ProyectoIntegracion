@@ -6,27 +6,27 @@
     <select id="obtenerTodosColaborador" resultType="pojo.Colaborador">
         SELECT c.idColaborador, c.nombreColaborador,  c.apellidoPaterno, 
         c.apellidoMaterno, c.noPersonal, c.correoElectronico, c.curp, 
-        c.contrasenia, r.idRol, r.tipoRol, u.idUnidad, u.vin
+        c.contrasenia, c.licencia, r.idRol, r.tipoRol, u.idUnidad, u.vin
         FROM colaborador c
         INNER JOIN rol r ON r.idRol = c.idRol
-        INNER JOIN unidad u ON u.idUnidad = c.idUnidad
+        LEFT JOIN unidad u ON u.idUnidad = c.idUnidad
     </select>
     
     <select id="obtenerNoPersonal" resultType="pojo.Colaborador">
         SELECT c.idColaborador, c.nombreColaborador,  c.apellidoPaterno, 
         c.apellidoMaterno, c.noPersonal, c.correoElectronico, c.curp, 
-        c.contrasenia, r.idRol, r.tipoRol, u.idUnidad, u.vin
+        c.contrasenia, c.licencia, r.idRol, r.tipoRol, u.idUnidad, u.vin
         FROM colaborador c
         INNER JOIN rol r ON r.idRol = c.idRol
-        INNER JOIN unidad u ON u.idUnidad = c.idUnidad
+        LEFT JOIN unidad u ON u.idUnidad = c.idUnidad
         WHERE c.noPersonal = #{noPersonal}
     </select>
     
     <insert id="agregar" parameterType="pojo.Colaborador">
         INSERT INTO colaborador (nombreColaborador, apellidoPaterno, apellidoMaterno, 
-        curp, correoElectronico, noPersonal, contrasenia, fotografia, idRol, idUnidad) 
+        curp, correoElectronico, noPersonal, contrasenia, fotografia, licencia, idRol, idUnidad) 
         VALUES (#{nombreColaborador}, #{apellidoPaterno}, #{apellidoMaterno}, #{curp}, 
-        #{correoElectronico}, #{noPersonal}, #{contrasenia}, #{fotografia}, #{idRol}, #{idUnidad});
+        #{correoElectronico}, #{noPersonal}, #{contrasenia}, #{fotografia}, #{licencia}, #{idRol}, #{idUnidad});
     </insert>
     
     <update id="actualizar" parameterType="pojo.Colaborador">
@@ -36,8 +36,9 @@
         apellidoMaterno = #{apellidoMaterno}, 
         curp = #{curp}, 
         correoElectronico = #{correoElectronico}, 
-        contrasenia = #{contrasenia}, 
-        fotografia = #{fotografia}, 
+        contrasenia = #{contrasenia},
+        fotografia = #{fotografia},
+        licencia = #{licencia}, 
         idRol = #{idRol}, 
         idUnidad = #{idUnidad}
         WHERE noPersonal = #{noPersonal};
@@ -47,4 +48,24 @@
         DELETE FROM colaborador
         WHERE noPersonal = #{noPersonal}
     </delete>
+    
+    <select id="verificarUnidad" parameterType="int" resultType="int"> 
+        SELECT COUNT(*) FROM colaborador 
+        WHERE idUnidad = #{idUnidad} 
+    </select>
+    
+    <update id="desasignarUnidad" parameterType="int"> 
+        UPDATE colaborador SET idUnidad = NULL 
+        WHERE idUnidad = #{idUnidad} 
+    </update>
+    
+    <update id="asignarUnidad" parameterType="pojo.Colaborador">
+        UPDATE colaborador
+        SET
+        idUnidad = #{idUnidad}
+        WHERE noPersonal = #{noPersonal};
+    </update>
+    
+    <select id="obtenerFoto" parameterType="java.lang.String" resultType="byte[]"> SELECT fotografia FROM colaborador WHERE noPersonal = #{noPersonal} </select>
+    <update id="actualizarFoto" parameterType="pojo.Colaborador"> UPDATE colaborador SET fotografia = #{fotografia} WHERE noPersonal = #{noPersonal}; </update>
 </mapper>

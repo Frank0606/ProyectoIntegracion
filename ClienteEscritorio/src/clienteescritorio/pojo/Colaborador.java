@@ -10,6 +10,7 @@ public class Colaborador {
     private String correoElectronico;
     private String noPersonal;
     private String contrasenia;
+    private String licencia;
     private byte[] fotografia;
     private Integer idRol;
     private String tipoRol;
@@ -22,7 +23,7 @@ public class Colaborador {
     public Colaborador(Integer idColaborador, String nombreColaborador, 
             String apellidoMaterno, String apellidoPaterno, String curp, 
             String correoElectronico, String noPersonal, String contrasenia, 
-            byte[] fotografia, Integer idRol, String tipoRol, Integer idUnidad, String vin) {
+            byte[] fotografia, String licencia, Integer idRol, String tipoRol, Integer idUnidad, String vin) {
         this.idColaborador = idColaborador;
         this.nombreColaborador = nombreColaborador;
         this.apellidoMaterno = apellidoMaterno;
@@ -32,6 +33,7 @@ public class Colaborador {
         this.noPersonal = noPersonal;
         this.contrasenia = contrasenia;
         this.fotografia = fotografia;
+        this.licencia = licencia;
         this.idRol = idRol;
         this.tipoRol = tipoRol;
         this.idUnidad = idUnidad;
@@ -48,6 +50,14 @@ public class Colaborador {
 
     public String getNombreColaborador() {
         return nombreColaborador;
+    }
+
+    public String getLicencia() {
+        return licencia;
+    }
+
+    public void setLicencia(String licencia) {
+        this.licencia = licencia;
     }
 
     public void setNombreColaborador(String nombreColaborador) {
@@ -144,8 +154,6 @@ public class Colaborador {
 
     @Override
     public String toString() {
-        return "Colaborador{" + "idColaborador=" + idColaborador + ", nombreColaborador=" + nombreColaborador + ", apellidoMaterno=" + apellidoMaterno + ", apellidoPaterno=" + apellidoPaterno + ", curp=" + curp + ", correoElectronico=" + correoElectronico + ", noPersonal=" + noPersonal + ", contrasenia=" + contrasenia + ", fotografia=" + fotografia + ", idRol=" + idRol + ", tipoRol=" + tipoRol + ", idUnidad=" + idUnidad + ", vin=" + vin + '}';
+        return nombreColaborador + " " + apellidoPaterno + " - " + noPersonal;
     }
-
-    
 }

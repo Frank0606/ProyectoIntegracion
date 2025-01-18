@@ -19,7 +19,7 @@ import pojo.Unidad;
 @Path("unidad")
 public class WSUnidad {
 
-    @Path("obtenerTodasUnidades")
+    @Path("todos")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Unidad> obtenerUnidades() {
@@ -40,7 +40,7 @@ public class WSUnidad {
         throw new BadRequestException("Se encontro el colaborador seleccionado:");
     }
 
-    @Path("registrar")
+    @Path("agregar")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -79,5 +79,4 @@ public class WSUnidad {
             throw new BadRequestException("ID Inválido.");
         }
     }
-
 }

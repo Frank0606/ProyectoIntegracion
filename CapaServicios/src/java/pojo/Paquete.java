@@ -9,12 +9,13 @@ public class Paquete {
     private Float alto;
     private Float ancho;
     private String idEnvio;
+    private String numeroGuia;
 
     public Paquete() {
     }
 
     public Paquete(String idPaquete, String descripcion, Float peso, Float profundidad, 
-            Float alto, Float ancho, String idEnvio) {
+            Float alto, Float ancho, String idEnvio, String numeroGuia) {
         this.idPaquete = idPaquete;
         this.descripcion = descripcion;
         this.peso = peso;
@@ -22,6 +23,15 @@ public class Paquete {
         this.alto = alto;
         this.ancho = ancho;
         this.idEnvio = idEnvio;
+        this.numeroGuia = numeroGuia;
+    }
+
+    public String getNumeroGuia() {
+        return numeroGuia;
+    }
+
+    public void setNumeroGuia(String numeroGuia) {
+        this.numeroGuia = numeroGuia;
     }
 
     public String getIdPaquete() {
@@ -72,16 +82,16 @@ public class Paquete {
         this.ancho = ancho;
     }
 
-    public String getidEnvio() {
+    public String getIdEnvio() {
         return idEnvio;
     }
 
-    public void setidEnvio(String idEnvio) {
+    public void setIdEnvio(String idEnvio) {
         this.idEnvio = idEnvio;
     }
 
     @Override
     public String toString() {
-        return "Paquete{" + "idPaquete=" + idPaquete + ", descripcion=" + descripcion + ", peso=" + peso + ", profundidad=" + profundidad + ", alto=" + alto + ", ancho=" + ancho + ", idEnvio=" + idEnvio + '}';
+        return idPaquete;
     }
 }

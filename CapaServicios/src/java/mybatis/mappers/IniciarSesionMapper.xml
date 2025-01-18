@@ -14,13 +14,14 @@
         c.curp, 
         c.contrasenia, 
         c.fotografia, 
+        c.licencia, 
         r.idRol,
         r.tipoRol,
         u.idUnidad,
         u.vin
         FROM colaborador c 
         INNER JOIN rol r ON r.idRol = c.idRol 
-        INNER JOIN unidad u ON u.idUnidad = c.idUnidad 
+        LEFT JOIN unidad u ON u.idUnidad = c.idUnidad 
         WHERE noPersonal = #{noPersonal} AND contrasenia = #{contrasenia}
     </select>
     <select id="iniciarSesionCliente" resultType="pojo.Cliente">
@@ -46,7 +47,8 @@
         c.nopersonal, 
         c.correoElectronico, 
         c.curp, 
-        c.contrasenia, 
+        c.contrasenia,
+        c.licencia,
         c.fotografia, 
         r.idRol,
         r.tipoRol,

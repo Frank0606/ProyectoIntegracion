@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritorio.modelo.dao;
 
 import clienteescritorio.modelo.ConexionWS;
@@ -15,13 +10,9 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.List;
 
-/**
- *
- * @author Manzano
- */
 public class ClientesDAO {
     
-    public static List<Cliente> obtenerCliente() {
+    public static List<Cliente> obtenerClientes() {
         List<Cliente> cliente = null;
         String url = Constantes.URL_WS + "cliente/todos";
         RespuestaHTTP respuesta = ConexionWS.peticionGET(url);

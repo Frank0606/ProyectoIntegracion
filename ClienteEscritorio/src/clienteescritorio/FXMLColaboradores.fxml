@@ -26,7 +26,7 @@
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy></TableView>
-      <Button fx:id="btnBuscar" layoutX="20.0" layoutY="80.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #850309; -fx-border-radius: 60; -fx-background-radius: 60;" text="Buscar" textFill="WHITE">
+      <Button fx:id="btnBuscar" layoutX="20.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #850309; -fx-border-radius: 60; -fx-background-radius: 60;" text="Buscar" textFill="WHITE">
          <font>
             <Font name="Candara Bold" size="18.0" />
          </font>
@@ -46,7 +46,7 @@
             <Font name="Candara Bold" size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="barraBusqueda" layoutX="120.0" layoutY="80.0" prefHeight="40.0" prefWidth="400.0" promptText="Buscar colaborador por No. de personal" style="-fx-border-radius: 60; -fx-background-radius: 60; -fx-background-color: #E6E0E9; -fx-border-color: #850309;">
+      <TextField fx:id="barraBusqueda" layoutX="120.0" layoutY="80.0" prefHeight="40.0" prefWidth="400.0" promptText="Buscar colaborador por No. de personal, nombre o rol." style="-fx-border-radius: 60; -fx-background-radius: 60; -fx-background-color: #E6E0E9; -fx-border-color: #850309;">
          <font>
             <Font name="Candara" size="18.0" />
          </font>

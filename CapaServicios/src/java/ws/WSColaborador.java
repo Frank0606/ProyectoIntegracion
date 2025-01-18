@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import pojo.Colaborador;
 import pojo.Mensaje;
@@ -35,7 +36,7 @@ public class WSColaborador {
         return ImpColaboradores.obtenerColaboradores();
     }
 
-    @Path("no-personal")
+    @Path("no-personal/{noPersonal}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Colaborador obtenerColaboradorPorNoPersonal(@PathParam("noPersonal") String noPersonal) {
@@ -78,10 +79,53 @@ public class WSColaborador {
         }
     }
 
-    @Path("eliminar")
+    @Path("eliminar/{noPersonal}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje eliminarColaborador(@PathParam("noPersonal") String noPersonal) {
-        return ImpColaboradores.eliminarColaborador(noPersonal);
+        if (noPersonal != null && !noPersonal.isEmpty()) {
+            return ImpColaboradores.eliminarColaborador(noPersonal);
+        }
+        throw new BadRequestException("NoPersonal inválido");
     }
+
+    @Path("asignar")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje asignarUnidad(String jsonColaborador) {
+        try {
+            Gson gson = new Gson();
+            Colaborador colaborador = gson.fromJson(jsonColaborador, Colaborador.class);
+            return ImpColaboradores.asignarUnidad(colaborador);
+        } catch (Exception e) {
+            throw new BadRequestException();
+        }
+    }
+
+    @PUT
+    @Path("/actualizar-foto/{noPersonal}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Response actualizarFotografia(@PathParam("noPersonal") String noPersonal, byte[] foto) {
+        if (noPersonal != null && !noPersonal.isEmpty() && foto != null && foto.length > 0) {
+            boolean actualizado = ImpColaboradores.actualizarFoto(noPersonal, foto);
+            if (actualizado) {
+                return Response.ok().build();
+            }
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al actualizar la foto").build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).entity("Datos inválidos").build();
+    }
+
+    @GET
+    @Path("/obtener-foto/{noPersonal}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response obtenerFotografia(@PathParam("noPersonal") String noPersonal) {
+        byte[] foto = ImpColaboradores.obtenerFoto(noPersonal);
+        if (foto != null) {
+            return Response.ok(foto).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).entity("Foto no encontrada").build();
+    }
+
 }

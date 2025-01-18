@@ -10,6 +10,7 @@ public class Colaborador {
     private String correoElectronico;
     private String noPersonal;
     private String contrasenia;
+    private String licencia;
     private byte[] fotografia;
     private Integer idRol;
     private String tipoRol;
@@ -19,7 +20,9 @@ public class Colaborador {
     public Colaborador() {
     }
 
-    public Colaborador(Integer idColaborador, String nombreColaborador, String apellidoMaterno, String apellidoPaterno, String curp, String correoElectronico, String noPersonal, String contrasenia, byte[] fotografia, Integer idRol, String tipoRol, Integer idUnidad, String vin) {
+    public Colaborador(Integer idColaborador, String nombreColaborador, String apellidoMaterno, 
+            String apellidoPaterno, String curp, String correoElectronico, String noPersonal, 
+            String contrasenia, byte[] fotografia, String licencia, Integer idRol, String tipoRol, Integer idUnidad, String vin) {
         this.idColaborador = idColaborador;
         this.nombreColaborador = nombreColaborador;
         this.apellidoMaterno = apellidoMaterno;
@@ -29,6 +32,7 @@ public class Colaborador {
         this.noPersonal = noPersonal;
         this.contrasenia = contrasenia;
         this.fotografia = fotografia;
+        this.licencia = licencia;
         this.idRol = idRol;
         this.tipoRol = tipoRol;
         this.idUnidad = idUnidad;
@@ -105,6 +109,14 @@ public class Colaborador {
 
     public void setFotografia(byte[] fotografia) {
         this.fotografia = fotografia;
+    }
+
+    public String getLicencia() {
+        return licencia;
+    }
+
+    public void setLicencia(String licencia) {
+        this.licencia = licencia;
     }
 
     public Integer getIdRol() {

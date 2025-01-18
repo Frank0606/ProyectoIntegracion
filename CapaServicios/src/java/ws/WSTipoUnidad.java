@@ -11,7 +11,7 @@ import pojo.TipoUnidad;
 @Path("tipoUnidad")
 public class WSTipoUnidad {
 
-    @Path("obtenerUnidad")
+    @Path("todos")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TipoUnidad> obtencionRol() {

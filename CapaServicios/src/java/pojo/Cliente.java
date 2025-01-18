@@ -1,10 +1,5 @@
 package pojo;
 
-/**
- *
- * @author Manzano
- */
-
 public class Cliente {
     
     private Integer idCliente;

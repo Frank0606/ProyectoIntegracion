@@ -3,31 +3,35 @@ package pojo;
 public class Envio {
 
     private String idEnvio;
-    private String origen;
+    private String destino;
     private String calle;
     private String numeroGuia;
     private Double costoEnvio;
-    private String numeroCasa;
+    private String numero;
     private String colonia;
     private String cp;
     private String ciudad;
     private String estado;
     private String estatus;
     private String historialEstados;
-    private String idCliente;
+    private Integer idCliente;
+    private String nombreCliente;
+    private Integer idColaborador;
+    private String nombreColaborador;
 
     public Envio() {
     }
 
-    public Envio(String idEnvio, String origen, String calle, String numeroGuia, 
-            Double costoEnvio, String numeroCasa, String colonia, String cp, 
-            String ciudad, String estado, String estatus, String historialEstados, String idCliente) {
+    public Envio(String idEnvio, String destino, String calle, String numeroGuia, 
+            Double costoEnvio, String numero, String colonia, String cp, 
+            String ciudad, String estado, String estatus, String historialEstados, Integer idCliente, 
+            String nombreCliente, Integer idColaborador, String nombreColaborador) {
         this.idEnvio = idEnvio;
-        this.origen = origen;
+        this.destino = destino;
         this.calle = calle;
         this.numeroGuia = numeroGuia;
         this.costoEnvio = costoEnvio;
-        this.numeroCasa = numeroCasa;
+        this.numero = numero;
         this.colonia = colonia;
         this.cp = cp;
         this.ciudad = ciudad;
@@ -35,6 +39,33 @@ public class Envio {
         this.estatus = estatus;
         this.historialEstados = historialEstados;
         this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
+        this.idColaborador = idColaborador;
+        this.nombreColaborador = nombreColaborador;
+    }
+
+    public Integer getIdColaborador() {
+        return idColaborador;
+    }
+
+    public void setIdColaborador(Integer idColaborador) {
+        this.idColaborador = idColaborador;
+    }
+
+    public String getNombreColaborador() {
+        return nombreColaborador;
+    }
+
+    public void setNombreColaborador(String nombreColaborador) {
+        this.nombreColaborador = nombreColaborador;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public String getIdEnvio() {
@@ -45,12 +76,12 @@ public class Envio {
         this.idEnvio = idEnvio;
     }
 
-    public String getOrigen() {
-        return origen;
+    public String getDestino() {
+        return destino;
     }
 
-    public void setOrigen(String origen) {
-        this.origen = origen;
+    public void setDestino(String destino) {
+        this.destino = destino;
     }
 
     public String getCalle() {
@@ -77,12 +108,12 @@ public class Envio {
         this.costoEnvio = costoEnvio;
     }
 
-    public String getNumeroCasa() {
-        return numeroCasa;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNumeroCasa(String numeroCasa) {
-        this.numeroCasa = numeroCasa;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getColonia() {
@@ -125,10 +156,6 @@ public class Envio {
         this.estatus = estatus;
     }
 
-    public String getIdCliente() {
-        return idCliente;
-    }
-
     public String getHistorialEstados() {
         return historialEstados;
     }
@@ -137,12 +164,16 @@ public class Envio {
         this.historialEstados = historialEstados;
     }
 
-    public void setIdCliente(String idCliente) {
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 
     @Override
     public String toString() {
-        return "Envio{" + "idEnvio=" + idEnvio + ", origen=" + origen + ", calle=" + calle + ", numeroGuia=" + numeroGuia + ", costoEnvio=" + costoEnvio + ", numeroCasa=" + numeroCasa + ", colonia=" + colonia + ", cp=" + cp + ", ciudad=" + ciudad + ", estado=" + estado + ", estatus=" + estatus + ", idCliente=" + idCliente + '}';
+        return numeroGuia;
     }
 }

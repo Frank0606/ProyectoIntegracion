@@ -2,17 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="paquete">
     <select id="obtenerPaquetes" resultType="pojo.Paquete">
-        SELECT *
-        FROM paquete
+        SELECT p.idPaquete, p.descripcion, p.peso, p.profundidad, p.alto, p.ancho, e.idEnvio, e.numeroGuia
+        FROM paquete p
+        INNER JOIN envio e ON e.idEnvio = p.idEnvio
     </select>
     <select id="obtenerPaqueteIdEnvio" resultType="pojo.Paquete">
-        SELECT *
-        FROM paquete
-        Where idEnvio = #{idEnvio}
+        SELECT p.idPaquete, p.descripcion, p.peso, p.profundidad, p.alto, p.ancho, e.idEnvio, e.numeroGuia
+        FROM paquete p
+        INNER JOIN envio e ON e.idEnvio = p.idEnvio
+        Where p.idEnvio = #{idEnvio}
     </select>
     <insert id="agregarPaquete" parameterType="pojo.Paquete">
-        INSERT INTO paquete(descripcion, peso, profundidad, alto, ancho, idEnvio)
-        VALUES(#{descripcion}, #{peso}, #{profundidad}, #{alto}, #{ancho}, #{idEnvio})
+        INSERT INTO paquete(idPaquete, descripcion, peso, profundidad, alto, ancho, idEnvio)
+        VALUES(#{idPaquete}, #{descripcion}, #{peso}, #{profundidad}, #{alto}, #{ancho}, #{idEnvio})
     </insert>
     <update id="actualizarPaquete" parameterType="pojo.Paquete">
         UPDATE paquete

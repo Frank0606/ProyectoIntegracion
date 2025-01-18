@@ -2,13 +2,13 @@ package clienteescritorio;
 
 import clienteescritorio.modelo.dao.ClientesDAO;
 import clienteescritorio.modelo.dao.Mensaje;
-import clienteescritorio.observador.NotificadorOperacion;
 import clienteescritorio.pojo.Cliente;
 import clienteescritorio.utilidades.Alertas;
 import clienteescritorio.utilidades.Funciones;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,9 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-public class FXMLClientesController implements Initializable, NotificadorOperacion {
+public class FXMLClientesController implements Initializable {
 
     @FXML
     private TableView<Cliente> tablaClientes;
@@ -44,19 +43,14 @@ public class FXMLClientesController implements Initializable, NotificadorOperaci
 
     private ObservableList<Cliente> clientes;
 
-    private NotificadorOperacion notificador;
     @FXML
     private TableColumn colApellidoPaterno;
     @FXML
     private TableColumn colApellidoMaterno;
     @FXML
-    private TableColumn colCalle;
+    private TableColumn<Cliente, String> colDestino;
     @FXML
-    private TableColumn colColonia;
-    @FXML
-    private TableColumn colCP;
-    @FXML
-    private TableColumn colNumeroCasa;
+    private TableColumn colTelefono;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,20 +64,20 @@ public class FXMLClientesController implements Initializable, NotificadorOperaci
         if (cliente != null) {
             eliminarCliente(cliente.getCorreoElectronico());
         } else {
-            Alertas.mostrarAlertaSimple("Seleccionar cliente.", "Para eliminar debes seleccionar un cliente de la tabla.", Alert.AlertType.WARNING);
+            Alertas.mostrarAlertaSimple("Seleccionar cliente.", "Para eliminar debes seleccionar un cliente "
+                    + "de la tabla.", Alert.AlertType.WARNING);
         }
     }
 
     private void eliminarCliente(String correoElectronico) {
         Mensaje msj = ClientesDAO.eliminarCliente(correoElectronico);
         if (!msj.isError()) {
-            Alertas.mostrarAlertaSimple("Cliente eliminado", "El cliente ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
+            Alertas.mostrarAlertaSimple("Cliente eliminado", "El cliente ha sido eliminado correctamente.",
+                    Alert.AlertType.INFORMATION);
             cargarInformacion();
-            if (notificador != null) {
-                notificador.notificarOperacion();
-            }
         } else {
-            Alertas.mostrarAlertaSimple("Error al eliminar.", msj.getMensaje(), Alert.AlertType.WARNING);
+            Alertas.mostrarAlertaSimple("Error al eliminar.", "No se pudo eliminar al cliente. Intente de nuevo mas tarde.",
+                    Alert.AlertType.WARNING);
         }
     }
 
@@ -91,15 +85,20 @@ public class FXMLClientesController implements Initializable, NotificadorOperaci
     private void btnEditar(ActionEvent event) {
         Cliente cliente = tablaClientes.getSelectionModel().getSelectedItem();
         if (cliente != null) {
-            Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioCliente.fxml", (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), cliente, new FXMLFormularioClienteController());
+            Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioCliente.fxml",
+                    (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), cliente,
+                    new FXMLFormularioClienteController());
         } else {
-            Alertas.mostrarAlertaSimple("Seleccionar cliente.", "Para editar debes seleccionar un cliente de la tabla.", Alert.AlertType.WARNING);
+            Alertas.mostrarAlertaSimple("Seleccionar cliente.", "Para editar debes seleccionar un cliente "
+                    + "de la tabla.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
     private void btnAgregar(ActionEvent event) {
-        Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioCliente.fxml", (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), null, new FXMLFormularioClienteController());
+        Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioCliente.fxml",
+                (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), null,
+                new FXMLFormularioClienteController());
     }
 
     private void configurarTabla() {
@@ -107,15 +106,18 @@ public class FXMLClientesController implements Initializable, NotificadorOperaci
         colCorreo.setCellValueFactory(new PropertyValueFactory("correoElectronico"));
         colApellidoPaterno.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));
         colApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
-        colCalle.setCellValueFactory(new PropertyValueFactory("calle"));
-        colColonia.setCellValueFactory(new PropertyValueFactory("colonia"));
-        colCP.setCellValueFactory(new PropertyValueFactory("cp"));
-        colNumeroCasa.setCellValueFactory(new PropertyValueFactory("numeroCasa"));
+        colDestino.setCellValueFactory(cellData -> {
+            Cliente cliente = cellData.getValue();
+            String direccionCompleta = cliente.getCalle() + " " + cliente.getNumeroCasa() + ", "
+                    + cliente.getColonia() + ", " + cliente.getCp();
+            return new SimpleStringProperty(direccionCompleta);
+        });
+        colTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
     }
 
     private void cargarInformacion() {
         clientes = FXCollections.observableArrayList();
-        List<Cliente> WSList = ClientesDAO.obtenerCliente();
+        List<Cliente> WSList = ClientesDAO.obtenerClientes();
         if (WSList != null) {
             clientes.addAll(WSList);
             tablaClientes.setItems(clientes);
@@ -126,29 +128,49 @@ public class FXMLClientesController implements Initializable, NotificadorOperaci
         }
     }
 
-    private void cerrarVentana() {
-        ((Stage) barraBusqueda.getScene().getWindow()).close();
-    }
-
-    @Override
-    public void notificarOperacion() {
-        cargarInformacion();
-    }
-
     @FXML
     private void btnBuscar(ActionEvent event) {
         if (!barraBusqueda.getText().trim().isEmpty()) {
             ObservableList<Cliente> resultadosBusqueda = FXCollections.observableArrayList();
+            String textoBusqueda = barraBusqueda.getText().trim().toUpperCase();
             for (Cliente cliente : clientes) {
-                if (cliente.getCorreoElectronico().equalsIgnoreCase(barraBusqueda.getText().trim())) {
+                String correo = cliente.getCorreoElectronico().chars()
+                        .mapToObj(c -> Character.isLetter(c) ? Character.toUpperCase((char) c) : (char) c)
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString();
+
+                String nombre = cliente.getNombreCliente().chars()
+                        .mapToObj(c -> Character.isLetter(c) ? Character.toUpperCase((char) c) : (char) c)
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString();
+
+                String telefono = cliente.getTelefono().chars()
+                        .mapToObj(c -> Character.isLetter(c) ? Character.toUpperCase((char) c) : (char) c)
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString();
+
+                String barraBusquedaTexto = barraBusqueda.getText().trim().chars().mapToObj(c -> Character.isLetter(c)
+                        ? Character.toUpperCase((char) c) : (char) c).collect(StringBuilder::new, StringBuilder::append,
+                        StringBuilder::append).toString();
+
+                if (correo.startsWith(barraBusquedaTexto)) {
                     resultadosBusqueda.add(cliente);
+                } else {
+                    if (nombre.startsWith(barraBusquedaTexto)) {
+                        resultadosBusqueda.add(cliente);
+                    } else {
+                        if (telefono.startsWith(barraBusquedaTexto)) {
+                            resultadosBusqueda.add(cliente);
+                        }
+                    }
                 }
             }
-
             if (!resultadosBusqueda.isEmpty()) {
                 tablaClientes.setItems(resultadosBusqueda);
             } else {
-                Alertas.mostrarAlertaSimple("No encontrado", "No se encontró ningún cliente con el correo proporcionado.", Alert.AlertType.INFORMATION);
+                Alertas.mostrarAlertaSimple("No encontrado", "No se encontró ningún cliente con el "
+                        + "correo electronico proporcionado.", Alert.AlertType.INFORMATION);
+                tablaClientes.setItems(null);
             }
         } else {
             tablaClientes.setItems(clientes);

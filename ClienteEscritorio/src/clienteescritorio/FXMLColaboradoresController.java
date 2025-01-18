@@ -1,8 +1,10 @@
 package clienteescritorio;
 
 import clienteescritorio.modelo.dao.ColaboradoresDAO;
+import clienteescritorio.modelo.dao.EnviosDAO;
 import clienteescritorio.modelo.dao.Mensaje;
 import clienteescritorio.pojo.Colaborador;
+import clienteescritorio.pojo.Envio;
 import clienteescritorio.utilidades.Alertas;
 import clienteescritorio.utilidades.Funciones;
 import java.net.URL;
@@ -20,14 +22,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class FXMLColaboradoresController implements Initializable {
 
     @FXML
     private TableView<Colaborador> tablaColaboradores;
-    @FXML
-    private TableColumn colNombreColaborador;
     @FXML
     private TableColumn colCorreo;
     @FXML
@@ -40,32 +39,77 @@ public class FXMLColaboradoresController implements Initializable {
     private Button btnEliminar;
     @FXML
     private TextField barraBusqueda;
-    
+
     private ObservableList<Colaborador> colaboradores;
+    private List<Envio> envios;
+
+    @FXML
+    private TableColumn colNoPersonal;
+    @FXML
+    private TableColumn colNombre;
+    @FXML
+    private TableColumn colApellidoPaterno;
+    @FXML
+    private TableColumn colCurp;
+    @FXML
+    private TableColumn colRol;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
         cargarInformacion();
+        cargarEnvios();
     }
 
     @FXML
     private void btnEliminar(ActionEvent event) {
         Colaborador colaborador = tablaColaboradores.getSelectionModel().getSelectedItem();
         if (colaborador != null) {
-            eliminarColaborador(colaborador.getCorreoElectronico());
+            eliminarColaborador(colaborador);
         } else {
             Alertas.mostrarAlertaSimple("Seleccionar colaborador.", "Para eliminar debes seleccionar un colaborador de la tabla.", Alert.AlertType.WARNING);
         }
     }
 
-    private void eliminarColaborador(String correoElectronico) {
-        Mensaje msj = ColaboradoresDAO.eliminarColaborador(correoElectronico);
-        if (!msj.isError()) {
-            Alertas.mostrarAlertaSimple("Colaborador eliminado", "El colaborador ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
-            cargarInformacion();
+    private void eliminarColaborador(Colaborador colaborador) {
+        if (colaborador.getIdRol() == 3) { // Solo verificar si es un conductor
+            if (colaborador.getIdUnidad() == null) {
+                for (Envio envio : envios) {
+                    if (envio.getIdColaborador().equals(colaborador.getIdColaborador())) {
+                        Alertas.mostrarAlertaSimple("Error al eliminar", "No se puede eliminar a un conductor que "
+                                + "tenga envíos asignados. Elimine los envíos primero.", Alert.AlertType.ERROR);
+                        return;
+                    }
+                }
+                Mensaje msj = ColaboradoresDAO.eliminarColaborador(colaborador.getNoPersonal());
+                if (!msj.isError()) {
+                    Alertas.mostrarAlertaSimple("Colaborador eliminado", "El colaborador ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
+                    cargarInformacion();
+                } else {
+                    Alertas.mostrarAlertaSimple("Error al eliminar.", "No se pudo eliminar el colaborador, intente nuevamente.", Alert.AlertType.WARNING);
+                }
+            } else {
+                Alertas.mostrarAlertaSimple("Error al eliminar", "No se puede eliminar a un conductor que "
+                        + "tenga una unidad asignada. Libere la unidad primero.", Alert.AlertType.ERROR);
+            }
         } else {
-            Alertas.mostrarAlertaSimple("Error al eliminar.", "No se pudo eliminar el colaborador, intente nuevamente.", Alert.AlertType.WARNING);
+            Mensaje msj = ColaboradoresDAO.eliminarColaborador(colaborador.getNoPersonal());
+            if (!msj.isError()) {
+                Alertas.mostrarAlertaSimple("Colaborador eliminado", "El colaborador ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
+                cargarInformacion();
+            } else {
+                Alertas.mostrarAlertaSimple("Error al eliminar.", "No se pudo eliminar el colaborador, intente nuevamente.", Alert.AlertType.WARNING);
+            }
+        }
+    }
+
+    private void cargarEnvios() {
+        List<Envio> envios = EnviosDAO.obtenerEnvios();
+        if (envios != null && !envios.isEmpty()) {
+            this.envios = FXCollections.observableArrayList(envios);
+        } else {
+            Alertas.mostrarAlertaSimple("Error al cargar", "Lo sentiento, no se pudo obtener la informacion de Roles",
+                    Alert.AlertType.ERROR);
         }
     }
 
@@ -73,20 +117,29 @@ public class FXMLColaboradoresController implements Initializable {
     private void btnEditar(ActionEvent event) {
         Colaborador colaborador = tablaColaboradores.getSelectionModel().getSelectedItem();
         if (colaborador != null) {
-            Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioColaborador.fxml", (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), colaborador, new FXMLFormularioColaboradorController());
+            Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioColaborador.fxml",
+                    (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), colaborador,
+                    new FXMLFormularioColaboradorController());
         } else {
-            Alertas.mostrarAlertaSimple("Seleccionar colaborador.", "Para editar debes seleccionar un colaborador de la tabla.", Alert.AlertType.WARNING);
+            Alertas.mostrarAlertaSimple("Seleccionar colaborador.", "Para editar debes seleccionar un colaborador "
+                    + "de la tabla.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
     private void btnAgregar(ActionEvent event) {
-        Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioColaborador.fxml", (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), null, new FXMLFormularioColaboradorController());
+        Funciones.cargarVistaConDatos("/clienteescritorio/FXMLFormularioColaborador.fxml",
+                (AnchorPane) barraBusqueda.getScene().lookup("#contenedorPrincipal"), null,
+                new FXMLFormularioColaboradorController());
     }
 
     private void configurarTabla() {
-        colNombreColaborador.setCellValueFactory(new PropertyValueFactory("nombreColaborador"));
+        colNoPersonal.setCellValueFactory(new PropertyValueFactory("noPersonal"));
+        colApellidoPaterno.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));
+        colNombre.setCellValueFactory(new PropertyValueFactory("nombreColaborador"));
         colCorreo.setCellValueFactory(new PropertyValueFactory("correoElectronico"));
+        colCurp.setCellValueFactory(new PropertyValueFactory("curp"));
+        colRol.setCellValueFactory(new PropertyValueFactory("tipoRol"));
     }
 
     private void cargarInformacion() {
@@ -105,20 +158,47 @@ public class FXMLColaboradoresController implements Initializable {
     private void btnBuscar(ActionEvent event) {
         if (!barraBusqueda.getText().trim().isEmpty()) {
             ObservableList<Colaborador> resultadosBusqueda = FXCollections.observableArrayList();
+            String textoBusqueda = barraBusqueda.getText().trim().toUpperCase();
             for (Colaborador colaborador : colaboradores) {
-                if (colaborador.getNoPersonal().equalsIgnoreCase(barraBusqueda.getText().trim())) {
+                String noPersonal = colaborador.getNoPersonal().chars()
+                        .mapToObj(c -> Character.isLetter(c) ? Character.toUpperCase((char) c) : (char) c)
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString();
+
+                String nombre = colaborador.getNombreColaborador().chars()
+                        .mapToObj(c -> Character.isLetter(c) ? Character.toUpperCase((char) c) : (char) c)
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString();
+
+                String rol = colaborador.getTipoRol().chars()
+                        .mapToObj(c -> Character.isLetter(c) ? Character.toUpperCase((char) c) : (char) c)
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString();
+
+                String barraBusquedaTexto = barraBusqueda.getText().trim().chars().mapToObj(c -> Character.isLetter(c)
+                        ? Character.toUpperCase((char) c) : (char) c).collect(StringBuilder::new, StringBuilder::append,
+                        StringBuilder::append).toString();
+
+                if (noPersonal.startsWith(barraBusquedaTexto)) {
                     resultadosBusqueda.add(colaborador);
+                } else {
+                    if (nombre.startsWith(barraBusquedaTexto)) {
+                        resultadosBusqueda.add(colaborador);
+                    } else {
+                        if (rol.startsWith(barraBusquedaTexto)) {
+                            resultadosBusqueda.add(colaborador);
+                        }
+                    }
                 }
             }
-
             if (!resultadosBusqueda.isEmpty()) {
                 tablaColaboradores.setItems(resultadosBusqueda);
             } else {
-                Alertas.mostrarAlertaSimple("No encontrado", "No se encontró ningún colaborador con el correo proporcionado.", Alert.AlertType.INFORMATION);
+                Alertas.mostrarAlertaSimple("No encontrado", "No se encontró ningún colaborador con el número de personal proporcionado.", Alert.AlertType.INFORMATION);
+                tablaColaboradores.setItems(null);
             }
         } else {
             tablaColaboradores.setItems(colaboradores);
         }
     }
 }
-

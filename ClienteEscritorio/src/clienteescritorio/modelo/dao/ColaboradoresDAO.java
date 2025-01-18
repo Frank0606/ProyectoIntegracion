@@ -11,10 +11,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-/**
- *
- * @author Manzano
- */
 public class ColaboradoresDAO {
         
     public static List<Colaborador> obtenerColaborador() {
@@ -77,7 +73,7 @@ public class ColaboradoresDAO {
     
     public static Mensaje eliminarColaborador(String noPersonal) {
         Mensaje msj = new Mensaje();
-        String url = Constantes.URL_WS + "colaborador/eliminar" + noPersonal;
+        String url = Constantes.URL_WS + "colaborador/eliminar/" + noPersonal;
         Gson gson = new Gson();
         try {
             String parametros = gson.toJson(noPersonal);
@@ -94,4 +90,25 @@ public class ColaboradoresDAO {
         }
         return msj;
     }
+    
+    public static Mensaje asignarUnidad(Colaborador colaborador) {
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS + "colaborador/asignar";
+        Gson gson = new Gson();
+        try {
+            String parametros = gson.toJson(colaborador);
+            RespuestaHTTP respuesta = ConexionWS.peticionPOSTJSON(url, parametros);
+            if (respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+                msj = gson.fromJson(respuesta.getContenido(), Mensaje.class);
+            } else {
+                msj.setError(true);
+                msj.setMensaje(respuesta.getContenido());
+            }
+        } catch (Exception e) {
+            msj.setError(true);
+            msj.setMensaje(e.getMessage());
+        }
+        return msj;
+    }
+    
 }
